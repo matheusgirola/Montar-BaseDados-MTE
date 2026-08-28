@@ -1,0 +1,34 @@
+[project]
+name = "pdet"
+version = "0.1.0"
+description = "Base local de microdados da RAIS e do CAGED (PDET/MTE)"
+requires-python = ">=3.11"
+
+dependencies = [
+    # motor de consulta e escrita de Parquet
+    "duckdb>=1.1",
+    # leitura de CSV em lotes, direto do fluxo descomprimido
+    "pyarrow>=17",
+    # descompressao de .7z. A partir da 1.0 existe py7zr.io.WriterFactory,
+    # que entrega os blocos conforme descomprime. Sem ela o conversor tem
+    # que extrair o .txt inteiro para disco antes de converter -- e o de
+    # Sao Paulo passa de 50 GB.
+    "py7zr>=1.0",
+    # inspecao dos resultados e apoio a analise
+    "pandas>=2.2",
+    # leitura dos layouts oficiais do MTE (.xls antigo e .xlsx)
+    "xlrd>=2.0",
+    "openpyxl>=3.1",
+]
+
+[dependency-groups]
+# uv sync --group notebook
+notebook = [
+    "jupyterlab>=4.2",
+    "matplotlib>=3.9",
+]
+
+[tool.uv]
+# Sem isto o uv pode preferir rodas antigas em Python novo e trazer
+# versoes de pyarrow sem suporte a leitura incremental.
+prerelease = "disallow"

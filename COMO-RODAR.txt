@@ -1,0 +1,52 @@
+﻿COMO RODAR O PROJETO PDET
+=========================
+(gerado por pdet-setup.ps1 -- se algo nao funcionar, rode o script de novo)
+
+O comando que SEMPRE funciona, mesmo se o 'uv' nao for reconhecido:
+
+    & "C:\Users\matheus.barbosa\.local\bin\uv.exe" sync
+    & "C:\Users\matheus.barbosa\.local\bin\uv.exe" run python <script.py> <argumentos>
+
+Depois de abrir um PowerShell NOVO, o atalho do perfil deixa isto valer:
+
+    uv sync
+    uv run python <script.py> <argumentos>
+
+Se 'uv' voltar a nao ser reconhecido, use a forma de cima. Ela nao
+depende do PATH nem do perfil.
+
+
+PASSOS DO PROJETO
+-----------------
+1) Conferir os cabecalhos dos arquivos baixados:
+
+    & "C:\Users\matheus.barbosa\.local\bin\uv.exe" run python pdet_cabecalhos.py --raw E:\pdet\00_raw
+
+2) Ver o que seria convertido, sem converter nada:
+
+    & "C:\Users\matheus.barbosa\.local\bin\uv.exe" run python pdet_parquet.py --raw E:\pdet\00_raw `
+        --saida E:\pdet\10_parquet --dry-run
+
+3) Converter (comeca pelos anos recentes, para validar antes do resto):
+
+    & "C:\Users\matheus.barbosa\.local\bin\uv.exe" run python pdet_parquet.py --raw E:\pdet\00_raw `
+        --saida E:\pdet\10_parquet --tmp C:\duckdb_tmp `
+        --estagio C:\duckdb_tmp\estagio --paralelo 3 `
+        --ano 2023 --ano 2024 --ano 2025
+
+4) Backfill completo, parando no fim do expediente:
+
+    & "C:\Users\matheus.barbosa\.local\bin\uv.exe" run python pdet_parquet.py --raw E:\pdet\00_raw `
+        --saida E:\pdet\10_parquet --tmp C:\duckdb_tmp `
+        --estagio C:\duckdb_tmp\estagio --paralelo 3 --ate-hora 17:20
+
+   Rodar de novo no dia seguinte continua de onde parou: o manifesto em
+   03_meta\conversao.csv registra cada unidade concluida.
+
+
+LEMBRETES
+---------
+- --estagio precisa ficar no disco LOCAL (C:), nunca no HD externo.
+- --tmp idem, e nunca dentro do OneDrive.
+- Conferir o ambiente:  .\pdet-setup.ps1 -Verificar
+- Refazer o ambiente:   .\pdet-setup.ps1 -Recriar

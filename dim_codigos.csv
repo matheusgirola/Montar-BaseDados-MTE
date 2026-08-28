@@ -1,0 +1,180 @@
+variavel,codigo,rotulo,confianca,observacao
+sexo,1,Masculino,alta,
+sexo,2,Feminino,alta,
+raca_cor,1,Indígena,alta,
+raca_cor,2,Branca,alta,
+raca_cor,4,Preta,alta,
+raca_cor,6,Amarela,alta,
+raca_cor,8,Parda,alta,
+raca_cor,9,Não identificado,alta,
+raca_cor,-1,Ignorado,alta,
+grau_instrucao,1,Analfabeto,alta,
+grau_instrucao,2,Até 5º ano incompleto do fundamental,alta,
+grau_instrucao,3,5º ano completo do fundamental,alta,
+grau_instrucao,4,6º ao 9º ano do fundamental,alta,
+grau_instrucao,5,Fundamental completo,alta,
+grau_instrucao,6,Médio incompleto,alta,
+grau_instrucao,7,Médio completo,alta,
+grau_instrucao,8,Superior incompleto,alta,
+grau_instrucao,9,Superior completo,alta,
+grau_instrucao,10,Mestrado,alta,
+grau_instrucao,11,Doutorado,alta,
+grau_instrucao,-1,Ignorado,alta,
+faixa_etaria,1,10 a 14 anos,alta,
+faixa_etaria,2,15 a 17 anos,alta,
+faixa_etaria,3,18 a 24 anos,alta,
+faixa_etaria,4,25 a 29 anos,alta,
+faixa_etaria,5,30 a 39 anos,alta,
+faixa_etaria,6,40 a 49 anos,alta,
+faixa_etaria,7,50 a 64 anos,alta,
+faixa_etaria,8,65 anos ou mais,alta,
+faixa_etaria,-1,Ignorado,alta,
+faixa_hora_contrat,1,Até 12 horas,alta,
+faixa_hora_contrat,2,13 a 15 horas,alta,
+faixa_hora_contrat,3,16 a 20 horas,alta,
+faixa_hora_contrat,4,21 a 30 horas,alta,
+faixa_hora_contrat,5,31 a 40 horas,alta,
+faixa_hora_contrat,6,41 a 44 horas,alta,
+faixa_hora_contrat,7,Acima de 44 horas,alta,
+faixa_hora_contrat,-1,Ignorado,alta,
+faixa_tempo_emprego,1,"Até 2,9 meses",alta,
+faixa_tempo_emprego,2,"3,0 a 5,9 meses",alta,
+faixa_tempo_emprego,3,"6,0 a 11,9 meses",alta,
+faixa_tempo_emprego,4,"12,0 a 23,9 meses",alta,
+faixa_tempo_emprego,5,"24,0 a 35,9 meses",alta,
+faixa_tempo_emprego,6,"36,0 a 59,9 meses",alta,
+faixa_tempo_emprego,7,"60,0 a 119,9 meses",alta,
+faixa_tempo_emprego,8,"120,0 meses ou mais",alta,
+faixa_tempo_emprego,-1,Ignorado,alta,
+faixa_remun_media_sm,0,"Até 0,50 SM",alta,
+faixa_remun_media_sm,1,"0,51 a 1,00 SM",alta,
+faixa_remun_media_sm,2,"1,01 a 1,50 SM",alta,
+faixa_remun_media_sm,3,"1,51 a 2,00 SM",alta,
+faixa_remun_media_sm,4,"2,01 a 3,00 SM",alta,
+faixa_remun_media_sm,5,"3,01 a 4,00 SM",alta,
+faixa_remun_media_sm,6,"4,01 a 5,00 SM",alta,
+faixa_remun_media_sm,7,"5,01 a 7,00 SM",alta,
+faixa_remun_media_sm,8,"7,01 a 10,00 SM",alta,
+faixa_remun_media_sm,9,"10,01 a 15,00 SM",alta,
+faixa_remun_media_sm,10,"15,01 a 20,00 SM",alta,
+faixa_remun_media_sm,11,"Mais de 20,00 SM",alta,
+faixa_remun_media_sm,99,Ignorado,alta,
+faixa_remun_media_sm,-1,Ignorado,alta,
+faixa_remun_dez_sm,0,"Até 0,50 SM",alta,
+faixa_remun_dez_sm,1,"0,51 a 1,00 SM",alta,
+faixa_remun_dez_sm,2,"1,01 a 1,50 SM",alta,
+faixa_remun_dez_sm,3,"1,51 a 2,00 SM",alta,
+faixa_remun_dez_sm,4,"2,01 a 3,00 SM",alta,
+faixa_remun_dez_sm,5,"3,01 a 4,00 SM",alta,
+faixa_remun_dez_sm,6,"4,01 a 5,00 SM",alta,
+faixa_remun_dez_sm,7,"5,01 a 7,00 SM",alta,
+faixa_remun_dez_sm,8,"7,01 a 10,00 SM",alta,
+faixa_remun_dez_sm,9,"10,01 a 15,00 SM",alta,
+faixa_remun_dez_sm,10,"15,01 a 20,00 SM",alta,
+faixa_remun_dez_sm,11,"Mais de 20,00 SM",alta,
+faixa_remun_dez_sm,99,Ignorado,alta,
+faixa_remun_dez_sm,-1,Ignorado,alta,
+tamanho_estab,1,Zero vínculo,alta,
+tamanho_estab,2,De 1 a 4 vínculos,alta,
+tamanho_estab,3,De 5 a 9,alta,
+tamanho_estab,4,De 10 a 19,alta,
+tamanho_estab,5,De 20 a 49,alta,
+tamanho_estab,6,De 50 a 99,alta,
+tamanho_estab,7,De 100 a 249,alta,
+tamanho_estab,8,De 250 a 499,alta,
+tamanho_estab,9,De 500 a 999,alta,
+tamanho_estab,10,1000 ou mais vínculos,alta,
+tamanho_estab,-1,Ignorado,alta,
+ibge_subsetor,1,Extrativa mineral,alta,
+ibge_subsetor,2,Indústria de produtos minerais não metálicos,alta,
+ibge_subsetor,3,Indústria metalúrgica,alta,
+ibge_subsetor,4,Indústria mecânica,alta,
+ibge_subsetor,5,Indústria do material elétrico e de comunicações,alta,
+ibge_subsetor,6,Indústria do material de transporte,alta,
+ibge_subsetor,7,Indústria da madeira e do mobiliário,alta,
+ibge_subsetor,8,"Indústria do papel, papelão, editorial e gráfica",alta,
+ibge_subsetor,9,"Indústria da borracha, fumo, couros e indústrias diversas",alta,
+ibge_subsetor,10,"Indústria química, de produtos farmacêuticos e perfumaria",alta,
+ibge_subsetor,11,"Indústria têxtil, do vestuário e artefatos de tecidos",alta,
+ibge_subsetor,12,Indústria de calçados,alta,
+ibge_subsetor,13,"Indústria de produtos alimentícios, bebidas e álcool etílico",alta,
+ibge_subsetor,14,Serviços industriais de utilidade pública,alta,
+ibge_subsetor,15,Construção civil,alta,
+ibge_subsetor,16,Comércio varejista,alta,
+ibge_subsetor,17,Comércio atacadista,alta,
+ibge_subsetor,18,"Instituições de crédito, seguros e capitalização",alta,
+ibge_subsetor,19,"Administração de imóveis, valores mobiliários e serviços técnicos",alta,
+ibge_subsetor,20,Transportes e comunicações,alta,
+ibge_subsetor,21,"Serviços de alojamento, alimentação, reparação e manutenção",alta,
+ibge_subsetor,22,"Serviços médicos, odontológicos e veterinários",alta,
+ibge_subsetor,23,Ensino,alta,
+ibge_subsetor,24,Administração pública direta e autárquica,alta,
+ibge_subsetor,25,"Agricultura, silvicultura, criação de animais e extrativismo vegetal",alta,
+ibge_subsetor,-1,Ignorado,alta,
+cbo_grande_grupo,0,"Forças armadas, policiais e bombeiros militares",alta,
+cbo_grande_grupo,1,"Membros superiores do poder público, dirigentes e gerentes",alta,
+cbo_grande_grupo,2,Profissionais das ciências e das artes,alta,
+cbo_grande_grupo,3,Técnicos de nível médio,alta,
+cbo_grande_grupo,4,Trabalhadores de serviços administrativos,alta,
+cbo_grande_grupo,5,"Trabalhadores dos serviços, vendedores do comércio",alta,
+cbo_grande_grupo,6,"Trabalhadores agropecuários, florestais e da pesca",alta,
+cbo_grande_grupo,7,Trabalhadores da produção de bens e serviços industriais,alta,
+cbo_grande_grupo,8,Trabalhadores da produção de bens e serviços industriais (contínuos),alta,
+cbo_grande_grupo,9,Trabalhadores de manutenção e reparação,alta,
+natureza_juridica_grupo,1,Administração pública,alta,
+natureza_juridica_grupo,2,Entidades empresariais,alta,
+natureza_juridica_grupo,3,Entidades sem fins lucrativos,alta,
+natureza_juridica_grupo,4,Pessoas físicas,alta,
+natureza_juridica_grupo,5,Organizações internacionais e outras instituições extraterritoriais,alta,
+ind_simples,0,Não optante pelo Simples,conferir,
+ind_simples,1,Optante pelo Simples,conferir,
+ind_simples,-1,Ignorado,conferir,
+tipo_vinculo,10,"CLT urbano, empregador PJ, prazo indeterminado",conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,15,"CLT urbano, empregador PF, prazo indeterminado",conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,20,"CLT rural, empregador PJ, prazo indeterminado",conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,25,"CLT rural, empregador PF, prazo indeterminado",conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,30,Estatutário,conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,31,Estatutário RGPS,conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,35,Estatutário não efetivo,conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,40,Avulso,conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,50,Temporário (Lei 6.019/74),conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,55,Aprendiz,conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,60,"CLT urbano, empregador PJ, prazo determinado",conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,65,"CLT urbano, empregador PF, prazo determinado",conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,70,"CLT rural, empregador PJ, prazo determinado",conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,75,"CLT rural, empregador PF, prazo determinado",conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,80,Diretor,conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,90,Contrato prazo determinado (Lei 9.601/98),conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,95,Contrato temporário (Lei 8.745/93),conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,96,Contrato prazo determinado - lei estadual,conferir,Conferir rótulos no layout oficial do MTE
+tipo_vinculo,97,Contrato prazo indeterminado - lei estadual,conferir,Conferir rótulos no layout oficial do MTE
+tipo_admissao,0,Não é admitido no ano,conferir,Conferir no layout oficial
+tipo_admissao,1,Primeiro emprego,conferir,Conferir no layout oficial
+tipo_admissao,2,Reemprego,conferir,Conferir no layout oficial
+tipo_admissao,3,Transferência com ônus,conferir,Conferir no layout oficial
+tipo_admissao,4,Transferência sem ônus,conferir,Conferir no layout oficial
+tipo_admissao,5,Reintegração,conferir,Conferir no layout oficial
+tipo_admissao,6,Recondução/reversão,conferir,Conferir no layout oficial
+tipo_admissao,-1,Ignorado,conferir,Conferir no layout oficial
+motivo_desligamento,0,Não desligado no ano,conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
+motivo_desligamento,10,Rescisão com justa causa por iniciativa do empregador,conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
+motivo_desligamento,11,Rescisão sem justa causa por iniciativa do empregador,conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
+motivo_desligamento,12,Término do contrato por prazo determinado,conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
+motivo_desligamento,20,Rescisão por iniciativa do empregado (com justa causa),conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
+motivo_desligamento,21,Rescisão por iniciativa do empregado (sem justa causa),conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
+vinculo_ativo_3112,true,Ativo em 31/12,alta,
+vinculo_ativo_3112,false,Desligado durante o ano,alta,
+tipo_defic,0,Não deficiente,conferir,Conferir no layout oficial
+tipo_defic,1,Física,conferir,Conferir no layout oficial
+tipo_defic,2,Auditiva,conferir,Conferir no layout oficial
+tipo_defic,3,Visual,conferir,Conferir no layout oficial
+tipo_defic,4,Mental,conferir,Conferir no layout oficial
+tipo_defic,5,Múltipla,conferir,Conferir no layout oficial
+tipo_defic,6,Reabilitado,conferir,Conferir no layout oficial
+tipo_defic,-1,Ignorado,conferir,Conferir no layout oficial
+nacionalidade,10,Brasileiro,conferir,Lista INCOMPLETA: demais codigos sao estrangeiros por pais de origem
+nacionalidade,20,Naturalizado brasileiro,conferir,Lista INCOMPLETA: demais codigos sao estrangeiros por pais de origem
+ind_atividade_ano,0,Sem atividade no ano,conferir,
+ind_atividade_ano,1,Com atividade no ano,conferir,
+ind_rais_negativa,0,RAIS com vínculos,conferir,
+ind_rais_negativa,1,RAIS negativa,conferir,

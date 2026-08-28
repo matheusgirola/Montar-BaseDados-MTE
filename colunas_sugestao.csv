@@ -1,0 +1,177 @@
+base,chave_normalizada,nome_canonico,tipo,anos_presentes,rotulos_brutos
+RAIS_DOMESTICO,muntrab,muntrab,,"2015,2016,2017",muntrab
+RAIS_DOMESTICO,cdsexo,cdsexo,,"2015,2016,2017",cdsexo
+RAIS_DOMESTICO,cdracacor,cdracacor,,"2015,2016,2017",cdracacor
+RAIS_DOMESTICO,cdgrauinstr,cdgrauinstr,,"2015,2016,2017",cdgrauinstr
+RAIS_DOMESTICO,cdmotivodeslig,cdmotivodeslig,,"2015,2016,2017",cdmotivodeslig
+RAIS_DOMESTICO,qtdhrsem,qtdhrsem,,"2015,2016,2017",qtdhrsem
+RAIS_DOMESTICO,tpjornada,tpjornada,,"2015,2016,2017",tpjornada
+RAIS_DOMESTICO,cdcbo,cdcbo,,"2015,2016,2017",cdcbo
+RAIS_DOMESTICO,sexoemp,sexoemp,,"2015,2016,2017",sexoemp
+RAIS_DOMESTICO,munemp,munemp,,"2015,2016,2017",munemp
+RAIS_DOMESTICO,dtadm,dtadm,,"2015,2016,2017",DtAdm
+RAIS_DOMESTICO,dtdes,dtdes,,"2015,2016,2017",DtDes
+RAIS_DOMESTICO,indvinculoativo3112,indvinculoativo3112,,"2015,2016,2017",indvinculoativo3112
+RAIS_DOMESTICO,ano,ano,,"2015,2016,2017",ano
+RAIS_DOMESTICO,idadetrab,idadetrab,,"2015,2016,2017",idadetrab
+RAIS_DOMESTICO,idadeemp,idadeemp,,"2015,2016,2017",idadeemp
+RAIS_ESTAB,bairros_sp,bairros_sp,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Bairros SP
+RAIS_ESTAB,bairros_sp_codigo,bairros_sp_codigo,,"2023,2024,2025",Bairros SP - Código
+RAIS_ESTAB,bairros_fortaleza,bairros_fortaleza,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Bairros Fortaleza
+RAIS_ESTAB,bairros_fortaleza_codigo,bairros_fortaleza_codigo,,"2023,2024,2025",Bairros Fortaleza - Código
+RAIS_ESTAB,bairros_rj,bairros_rj,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Bairros RJ
+RAIS_ESTAB,bairros_rj_codigo,bairros_rj_codigo,,"2023,2024,2025",Bairros RJ - Código
+RAIS_ESTAB,cnae_2_0_classe,cnae_2_0_classe,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",CNAE 2.0 Classe
+RAIS_ESTAB,cnae_2_0_classe_codigo,cnae_2_0_classe_codigo,,"2023,2024,2025",CNAE 2.0 Classe - Código
+RAIS_ESTAB,cnae_95_classe,cnae_95_classe,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",CNAE 95 Classe
+RAIS_ESTAB,cnae_95_classe_codigo,cnae_95_classe_codigo,,"2023,2024,2025",CNAE 95 Classe - Código
+RAIS_ESTAB,distritos_sp,distritos_sp,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Distritos SP
+RAIS_ESTAB,distritos_sp_codigo,distritos_sp_codigo,,"2023,2024,2025",Distritos SP - Código
+RAIS_ESTAB,qtd_vinculos_clt,qtd_vinculos_clt,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",Qtd Vínculos CLT
+RAIS_ESTAB,qtd_vinculos_ativos,qtd_vinculos_ativos,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",Qtd Vínculos Ativos
+RAIS_ESTAB,qtd_vinculos_estatutarios,qtd_vinculos_estatutarios,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",Qtd Vínculos Estatutários
+RAIS_ESTAB,ind_atividade_ano,ind_atividade_ano,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Ind Atividade Ano
+RAIS_ESTAB,ind_atividade_ano_codigo,ind_atividade_ano_codigo,,"2023,2024,2025",Ind Atividade Ano - Código
+RAIS_ESTAB,ind_cei_vinculado,ind_cei_vinculado,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Ind CEI Vinculado
+RAIS_ESTAB,ind_cei_vinculado_codigo,ind_cei_vinculado_codigo,,"2023,2024,2025",Ind CEI Vinculado - Código
+RAIS_ESTAB,ind_estab_participa_pat,ind_estab_participa_pat,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Ind Estab Participa PAT
+RAIS_ESTAB,ind_estab_participante_pat_codigo,ind_estab_participante_pat_codigo,,"2023,2024,2025",Ind Estab Participante PAT - Código
+RAIS_ESTAB,ind_rais_negativa,ind_rais_negativa,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Ind Rais Negativa
+RAIS_ESTAB,ind_rais_negativa_codigo,ind_rais_negativa_codigo,,"2023,2024,2025",Ind RAIS Negativa - Código
+RAIS_ESTAB,ind_simples,ind_simples,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Ind Simples
+RAIS_ESTAB,ind_estab_participante_simples_codigo,ind_estab_participante_simples_codigo,,"2023,2024,2025",Ind Estab Participante SIMPLES - Código
+RAIS_ESTAB,municipio,municipio,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Município
+RAIS_ESTAB,municipio_codigo,municipio_codigo,,"2023,2024,2025",Município - Código
+RAIS_ESTAB,natureza_juridica,natureza_juridica,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Natureza Jurídica
+RAIS_ESTAB,natureza_juridica_codigo,natureza_juridica_codigo,,"2023,2024,2025",Natureza Jurídica - Código
+RAIS_ESTAB,regioes_adm_df,regioes_adm_df,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Regiões Adm DF
+RAIS_ESTAB,regiao_adm_df_codigo,regiao_adm_df_codigo,,"2023,2024,2025",Região Adm DF - Código
+RAIS_ESTAB,cnae_2_0_subclasse,cnae_2_0_subclasse,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",CNAE 2.0 Subclasse
+RAIS_ESTAB,cnae_2_0_subclasse_codigo,cnae_2_0_subclasse_codigo,,"2023,2024,2025",CNAE 2.0 Subclasse - Codigo
+RAIS_ESTAB,tamanho_estabelecimento,tamanho_estabelecimento,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Tamanho Estabelecimento
+RAIS_ESTAB,tamanho_estabelecimento_codigo,tamanho_estabelecimento_codigo,,"2023,2024,2025",Tamanho Estabelecimento - Código
+RAIS_ESTAB,tipo_estab,tipo_estab,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Tipo Estab
+RAIS_ESTAB,tipo_estabelecimento_codigo,tipo_estabelecimento_codigo,,"2023,2024,2025",Tipo Estabelecimento - Código
+RAIS_ESTAB,uf_codigo,uf_codigo,,"2023,2024,2025",UF - Código
+RAIS_ESTAB,uf,uf,,"2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",UF
+RAIS_ESTAB,ibge_subsetor_codigo,ibge_subsetor_codigo,,"2023,2024,2025",IBGE Subsetor - Código
+RAIS_ESTAB,ibge_subsetor,ibge_subsetor,,"2014,2015,2016,2017,2018,2019,2020,2021,2022",IBGE Subsetor
+RAIS_ESTAB,cep_estab,cep_estab,,"2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",CEP Estab
+RAIS_VINCULOS,bairros_sp,bairros_sp,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Bairros SP
+RAIS_VINCULOS,bairros_sp_codigo,bairros_sp_codigo,,"2023,2024,2025",Bairros SP - Código
+RAIS_VINCULOS,bairros_fortaleza,bairros_fortaleza,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Bairros Fortaleza
+RAIS_VINCULOS,bairros_fortaleza_codigo,bairros_fortaleza_codigo,,"2023,2024,2025",Bairros Fortaleza - Código
+RAIS_VINCULOS,bairros_rj,bairros_rj,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Bairros RJ
+RAIS_VINCULOS,bairros_rj_codigo,bairros_rj_codigo,,"2023,2024,2025",Bairros RJ - Código
+RAIS_VINCULOS,causa_afastamento_1,causa_afastamento_1,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Causa Afastamento 1
+RAIS_VINCULOS,causa_afastamento_1_codigo,causa_afastamento_1_codigo,,"2023,2024,2025",Causa Afastamento 1 - Código
+RAIS_VINCULOS,causa_afastamento_2,causa_afastamento_2,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Causa Afastamento 2
+RAIS_VINCULOS,causa_afastamento_2_codigo,causa_afastamento_2_codigo,,"2023,2024,2025",Causa Afastamento 2 - Código
+RAIS_VINCULOS,causa_afastamento_3,causa_afastamento_3,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Causa Afastamento 3
+RAIS_VINCULOS,causa_afastamento_3_codigo,causa_afastamento_3_codigo,,"2023,2024,2025",Causa Afastamento 3 - Código
+RAIS_VINCULOS,motivo_desligamento,motivo_desligamento,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Motivo Desligamento
+RAIS_VINCULOS,motivo_desligamento_codigo,motivo_desligamento_codigo,,"2023,2024,2025",Motivo Desligamento - Código
+RAIS_VINCULOS,cbo_ocupacao_2002,cbo_ocupacao_2002,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",CBO Ocupação 2002
+RAIS_VINCULOS,cbo_2002_ocupacao_codigo,cbo_2002_ocupacao_codigo,,"2023,2024,2025",CBO 2002 Ocupação - Código
+RAIS_VINCULOS,cnae_2_0_classe,cnae_2_0_classe,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",CNAE 2.0 Classe
+RAIS_VINCULOS,cnae_2_0_classe_codigo,cnae_2_0_classe_codigo,,"2023,2024,2025",CNAE 2.0 Classe - Código
+RAIS_VINCULOS,cnae_95_classe,cnae_95_classe,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",CNAE 95 Classe
+RAIS_VINCULOS,cnae_95_classe_codigo,cnae_95_classe_codigo,,"2023,2024,2025",CNAE 95 Classe - Código
+RAIS_VINCULOS,distritos_sp,distritos_sp,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Distritos SP
+RAIS_VINCULOS,distritos_sp_codigo,distritos_sp_codigo,,"2023,2024,2025",Distritos SP - Código
+RAIS_VINCULOS,vinculo_ativo_31_12,vinculo_ativo_31_12,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Vínculo Ativo 31/12
+RAIS_VINCULOS,ind_vinculo_ativo_31_12_codigo,ind_vinculo_ativo_31_12_codigo,,"2023,2024,2025",Ind Vínculo Ativo 31/12 - Código
+RAIS_VINCULOS,faixa_etaria,faixa_etaria,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Faixa Etária
+RAIS_VINCULOS,faixa_etaria_codigo,faixa_etaria_codigo,,"2023,2024,2025",Faixa Etária - Código
+RAIS_VINCULOS,faixa_hora_contrat,faixa_hora_contrat,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Faixa Hora Contrat
+RAIS_VINCULOS,faixa_rem_media_sm_codigo,faixa_rem_media_sm_codigo,,"2023,2024,2025",Faixa Rem Média (SM) - Código
+RAIS_VINCULOS,faixa_remun_dezem_sm,faixa_remun_dezem_sm,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Faixa Remun Dezem (SM)
+RAIS_VINCULOS,faixa_hora_contrat_codigo,faixa_hora_contrat_codigo,,"2023,2024,2025",Faixa Hora Contrat - Código
+RAIS_VINCULOS,faixa_remun_media_sm,faixa_remun_media_sm,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Faixa Remun Média (SM)
+RAIS_VINCULOS,faixa_rem_dez_sm_codigo,faixa_rem_dez_sm_codigo,,"2023,2024,2025",Faixa Rem Dez (SM) - Código
+RAIS_VINCULOS,faixa_tempo_emprego,faixa_tempo_emprego,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Faixa Tempo Emprego
+RAIS_VINCULOS,faixa_tempo_emprego_codigo,faixa_tempo_emprego_codigo,,"2023,2024,2025",Faixa Tempo Emprego - Código
+RAIS_VINCULOS,escolaridade_apos_2005,escolaridade_apos_2005,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Escolaridade após 2005
+RAIS_VINCULOS,escolaridade_apos_2005_codigo,escolaridade_apos_2005_codigo,,"2023,2024,2025",Escolaridade Após 2005 - Código
+RAIS_VINCULOS,qtd_hora_contr,qtd_hora_contr,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",Qtd Hora Contr
+RAIS_VINCULOS,idade,idade,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",Idade
+RAIS_VINCULOS,ind_cei_vinculado,ind_cei_vinculado,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Ind CEI Vinculado
+RAIS_VINCULOS,ind_cei_vinculado_codigo,ind_cei_vinculado_codigo,,"2023,2024,2025",Ind CEI Vinculado - Código
+RAIS_VINCULOS,ind_simples,ind_simples,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Ind Simples
+RAIS_VINCULOS,ind_estabelecimento_participante_simples_codigo,ind_estabelecimento_participante_simples_codigo,,"2023,2024,2025",Ind Estabelecimento Participante SIMPLES - Código
+RAIS_VINCULOS,mes_admissao,mes_admissao,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Mês Admissão
+RAIS_VINCULOS,mes_admissao_codigo,mes_admissao_codigo,,"2023,2024,2025",Mês Admissão - Código
+RAIS_VINCULOS,mes_desligamento,mes_desligamento,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Mês Desligamento
+RAIS_VINCULOS,mes_desligamento_codigo,mes_desligamento_codigo,,"2023,2024,2025",Mês Desligamento - Código
+RAIS_VINCULOS,mun_trab,mun_trab,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Mun Trab
+RAIS_VINCULOS,municipio_trab_codigo,municipio_trab_codigo,,"2023,2024,2025",Município Trab - Código
+RAIS_VINCULOS,municipio,municipio,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Município
+RAIS_VINCULOS,municipio_codigo,municipio_codigo,,"2023,2024,2025",Município - Código
+RAIS_VINCULOS,nacionalidade,nacionalidade,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Nacionalidade
+RAIS_VINCULOS,nacionalidade_codigo,nacionalidade_codigo,,"2023,2024,2025",Nacionalidade - Código
+RAIS_VINCULOS,natureza_juridica,natureza_juridica,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Natureza Jurídica
+RAIS_VINCULOS,natureza_juridica_codigo,natureza_juridica_codigo,,"2023,2024,2025",Natureza Jurídica - Código
+RAIS_VINCULOS,ind_portador_defic,ind_portador_defic,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Ind Portador Defic
+RAIS_VINCULOS,ind_portador_defic_codigo,ind_portador_defic_codigo,,"2023,2024,2025",Ind Portador Defic - Código
+RAIS_VINCULOS,qtd_dias_afastamento,qtd_dias_afastamento,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",Qtd Dias Afastamento
+RAIS_VINCULOS,raca_cor,raca_cor,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Raça Cor
+RAIS_VINCULOS,raca_cor_codigo,raca_cor_codigo,,"2023,2024,2025",Raça Cor - Código
+RAIS_VINCULOS,regioes_adm_df,regioes_adm_df,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Regiões Adm DF
+RAIS_VINCULOS,regiao_adm_df_codigo,regiao_adm_df_codigo,,"2023,2024,2025",Região Adm DF - Código
+RAIS_VINCULOS,vl_remun_dezembro_nom,vl_remun_dezembro_nom,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Vl Remun Dezembro Nom
+RAIS_VINCULOS,vl_rem_dezembro_nom,vl_rem_dezembro_nom,,"2023,2024,2025",Vl Rem Dezembro Nom
+RAIS_VINCULOS,vl_remun_dezembro_sm,vl_remun_dezembro_sm,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Vl Remun Dezembro (SM)
+RAIS_VINCULOS,vl_rem_dezembro_sm,vl_rem_dezembro_sm,,"2023,2024,2025",Vl Rem Dezembro (SM)
+RAIS_VINCULOS,vl_remun_media_nom,vl_remun_media_nom,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Vl Remun Média Nom
+RAIS_VINCULOS,vl_rem_media_nom,vl_rem_media_nom,,"2023,2024,2025",Vl Rem Média Nom
+RAIS_VINCULOS,vl_remun_media_sm,vl_remun_media_sm,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Vl Remun Média (SM)
+RAIS_VINCULOS,vl_rem_media_sm,vl_rem_media_sm,,"2023,2024,2025",Vl Rem Média (SM)
+RAIS_VINCULOS,cnae_2_0_subclasse,cnae_2_0_subclasse,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",CNAE 2.0 Subclasse
+RAIS_VINCULOS,cnae_2_0_subclasse_codigo,cnae_2_0_subclasse_codigo,,"2023,2024,2025",CNAE 2.0 Subclasse - Codigo
+RAIS_VINCULOS,sexo_trabalhador,sexo_trabalhador,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Sexo Trabalhador
+RAIS_VINCULOS,sexo_codigo,sexo_codigo,,"2023,2024,2025",Sexo - Código
+RAIS_VINCULOS,tamanho_estabelecimento,tamanho_estabelecimento,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Tamanho Estabelecimento
+RAIS_VINCULOS,tamanho_estabelecimento_codigo,tamanho_estabelecimento_codigo,,"2023,2024,2025",Tamanho Estabelecimento - Código
+RAIS_VINCULOS,tempo_emprego,tempo_emprego,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",Tempo Emprego
+RAIS_VINCULOS,tipo_admissao,tipo_admissao,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Tipo Admissão
+RAIS_VINCULOS,tipo_admissao_trabalhador_codigo,tipo_admissao_trabalhador_codigo,,"2023,2024,2025",Tipo Admissão Trabalhador - Código
+RAIS_VINCULOS,tipo_estab,tipo_estab,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Tipo Estab
+RAIS_VINCULOS,tipo_estabelecimento_codigo,tipo_estabelecimento_codigo,,"2023,2024,2025",Tipo Estabelecimento - Código
+RAIS_VINCULOS,tipo_estabelecimento_nome,tipo_estabelecimento_nome,,"2023,2024,2025",Tipo Estabelecimento - Nome
+RAIS_VINCULOS,tipo_defic,tipo_defic,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Tipo Defic
+RAIS_VINCULOS,tipo_deficiencia_codigo,tipo_deficiencia_codigo,,"2023,2024,2025",Tipo Deficiência - Código
+RAIS_VINCULOS,tipo_vinculo,tipo_vinculo,,"2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022",Tipo Vínculo
+RAIS_VINCULOS,tipo_vinculo_codigo,tipo_vinculo_codigo,,"2023,2024,2025",Tipo Vínculo - Código
+RAIS_VINCULOS,ibge_subsetor,ibge_subsetor,,"2015,2016,2017,2018,2019,2020,2021,2022",IBGE Subsetor
+RAIS_VINCULOS,ibge_subsetor_codigo,ibge_subsetor_codigo,,"2023,2024,2025",IBGE Subsetor - Código
+RAIS_VINCULOS,vl_rem_janeiro_cc,vl_rem_janeiro_cc,,"2015,2016,2017,2018,2019",Vl Rem Janeiro CC
+RAIS_VINCULOS,vl_rem_janeiro_sc,vl_rem_janeiro_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Janeiro SC
+RAIS_VINCULOS,vl_rem_fevereiro_cc,vl_rem_fevereiro_cc,,"2015,2016,2017,2018,2019",Vl Rem Fevereiro CC
+RAIS_VINCULOS,vl_rem_fevereiro_sc,vl_rem_fevereiro_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Fevereiro SC
+RAIS_VINCULOS,vl_rem_marco_cc,vl_rem_marco_cc,,"2015,2016,2017,2018,2019",Vl Rem Março CC
+RAIS_VINCULOS,vl_rem_marco_sc,vl_rem_marco_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Março SC
+RAIS_VINCULOS,vl_rem_abril_cc,vl_rem_abril_cc,,"2015,2016,2017,2018,2019",Vl Rem Abril CC
+RAIS_VINCULOS,vl_rem_abril_sc,vl_rem_abril_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Abril SC
+RAIS_VINCULOS,vl_rem_maio_cc,vl_rem_maio_cc,,"2015,2016,2017,2018,2019",Vl Rem Maio CC
+RAIS_VINCULOS,vl_rem_maio_sc,vl_rem_maio_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Maio SC
+RAIS_VINCULOS,vl_rem_junho_cc,vl_rem_junho_cc,,"2015,2016,2017,2018,2019",Vl Rem Junho CC
+RAIS_VINCULOS,vl_rem_junho_sc,vl_rem_junho_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Junho SC
+RAIS_VINCULOS,vl_rem_julho_cc,vl_rem_julho_cc,,"2015,2016,2017,2018,2019",Vl Rem Julho CC
+RAIS_VINCULOS,vl_rem_julho_sc,vl_rem_julho_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Julho SC
+RAIS_VINCULOS,vl_rem_agosto_cc,vl_rem_agosto_cc,,"2015,2016,2017,2018,2019",Vl Rem Agosto CC
+RAIS_VINCULOS,vl_rem_agosto_sc,vl_rem_agosto_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Agosto SC
+RAIS_VINCULOS,vl_rem_setembro_cc,vl_rem_setembro_cc,,"2015,2016,2017,2018,2019",Vl Rem Setembro CC
+RAIS_VINCULOS,vl_rem_setembro_sc,vl_rem_setembro_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Setembro SC
+RAIS_VINCULOS,vl_rem_outubro_cc,vl_rem_outubro_cc,,"2015,2016,2017,2018,2019",Vl Rem Outubro CC
+RAIS_VINCULOS,vl_rem_outubro_sc,vl_rem_outubro_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Outubro SC
+RAIS_VINCULOS,vl_rem_novembro_cc,vl_rem_novembro_cc,,"2015,2016,2017,2018,2019",Vl Rem Novembro CC
+RAIS_VINCULOS,vl_rem_novembro_sc,vl_rem_novembro_sc,,"2020,2021,2022,2023,2024,2025",Vl Rem Novembro SC
+RAIS_VINCULOS,ano_chegada_brasil,ano_chegada_brasil,,"2016,2017,2018,2019,2020,2021,2022,2023,2024,2025",Ano Chegada Brasil
+RAIS_VINCULOS,ind_trab_parcial,ind_trab_parcial,,"2017,2018,2019,2020,2021,2022",Ind Trab Parcial
+RAIS_VINCULOS,ind_trabalho_intermitente_codigo,ind_trabalho_intermitente_codigo,,"2023,2024,2025",Ind Trabalho Intermitente - Código
+RAIS_VINCULOS,ind_trab_intermitente,ind_trab_intermitente,,"2017,2018,2019,2020,2021,2022",Ind Trab Intermitente
+RAIS_VINCULOS,ind_trabalho_parcial_codigo,ind_trabalho_parcial_codigo,,"2023,2024,2025",Ind Trabalho Parcial - Código
+RAIS_VINCULOS,tipo_salario,tipo_salario,,2018,Tipo Salário
+RAIS_VINCULOS,ind_vinculo_abandonado_codigo,ind_vinculo_abandonado_codigo,,"2023,2024,2025",Ind Vínculo Abandonado - Código
+RAIS_VINCULOS,vl_salario_contratual,vl_salario_contratual,,2018,Vl Salário Contratual
+RAIS_VINCULOS,categoria_trabalhador_codigo,categoria_trabalhador_codigo,,"2023,2024,2025",Categoria Trabalhador - Código

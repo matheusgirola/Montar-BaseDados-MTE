@@ -1,0 +1,150 @@
+FASE 3 -- O BANCO ANALITICO
+===========================
+
+O Parquet no HD externo continua sendo a fonte da verdade. O arquivo
+pdet.duckdb fica no disco INTERNO e guarda apenas views, dimensoes e
+agregados. Pode ser apagado e refeito a qualquer momento.
+
+Onde cada coisa vai:
+
+    E:\pdet\10_parquet     Parquet (fonte da verdade, HD externo)
+    C:\pdet\pdet.duckdb    banco (disco interno, fora do OneDrive)
+    C:\pdet\tmp            spill do DuckDB (disco interno)
+    .\dicionarios\         os 5 CSVs de apoio deste pacote
+
+
+PASSO 1 -- CRIAR AS VIEWS E AS DIMENSOES  (segundos)
+----------------------------------------------------
+
+    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
+        --tmp C:\pdet\tmp `
+        criar --parquet E:\pdet\10_parquet `
+              --dicionarios .\dicionarios `
+              --meta .
+
+O --meta aponta para a pasta onde estao conversao.csv, manifesto.csv,
+dic_rais.csv, inventario_ftp.csv e cabecalhos.csv. Eles viram tabelas
+meta_* dentro do banco, para que a proveniencia de cada numero fique
+consultavel junto com o numero.
+
+Rode este comando de novo sempre que:
+  - converter um ano novo para Parquet
+  - corrigir algum CSV de dicionario
+  - a letra do HD externo mudar (E: virar F:, por exemplo)
+
+
+PASSO 2 -- CHECAR ANTES DE AGREGAR  (minutos)
+---------------------------------------------
+
+    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
+        --tmp C:\pdet\tmp checar --mostrar
+
+Gera checagem_banco.md. NAO pule este passo: agregar em cima de dado
+duplicado produz relatorio errado que parece certo.
+
+Para ver o que cada checagem faz:  checar --listar
+Para rodar so uma:                 checar --checagem estoque_brasil
+
+
+PASSO 3 -- COMPLETAR OS ROTULOS  (opcional, uma vez)
+----------------------------------------------------
+
+    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
+        --tmp C:\pdet\tmp codigos
+
+Lista todo codigo que aparece na base e diz quais nao tem rotulo em
+dicionarios\dim_codigos.csv. Complete o CSV pelo layout oficial do MTE e
+rode o PASSO 1 de novo.
+
+Atencao: em dim_codigos.csv a coluna 'confianca' vale 'alta' ou
+'conferir'. O que esta como 'conferir' foi preenchido de memoria e
+precisa bater com o layout antes de sair em relatorio.
+
+
+PASSO 4 -- MATERIALIZAR OS CUBOS  (horas, na primeira vez)
+----------------------------------------------------------
+
+    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
+        --tmp C:\pdet\tmp agregar --uf-detalhe PI
+
+Sao 4 varreduras dos vinculos. Com 5 bilhoes de linhas no USB, conte
+algumas horas. Da para deixar rodando e conferir depois -- se cair, e so
+rodar de novo (cada tabela e refeita inteira).
+
+No ano seguinte, quando so o ano novo entrar:
+
+    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
+        --tmp C:\pdet\tmp agregar --ano 2026 --uf-detalhe PI
+
+Com --ano, as linhas daquele ano sao apagadas e reinseridas; o resto da
+serie fica intacto. E este o caminho da atualizacao anual.
+
+
+PASSO 5 -- CONSULTAR
+--------------------
+
+    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb consulta --listar
+
+    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
+        consulta --nome estoque_municipio --param uf=PI --param ano=2025
+
+    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
+        consulta --nome municipio_serie --param cod_mun=221100 `
+        --csv teresina_serie.csv
+
+SQL avulso, quando precisar de algo que nao esta em consultas.sql:
+
+    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
+        sql "SELECT * FROM v_uf_ano WHERE uf = 'PI' ORDER BY ano"
+
+
+O QUE FICA DENTRO DO BANCO
+--------------------------
+
+views sobre o Parquet
+    vinculos, estabelecimentos, domesticos   (+ colunas derivadas:
+        cod_mun, cbo_grande_grupo, nat_jur_grupo, setor_publico,
+        cnae_divisao)
+    src_*   as mesmas, sem as derivadas
+    arq_*   com o nome do arquivo de origem, so para diagnostico
+
+dimensoes
+    dim_municipio       5.571 municipios do IBGE, codigo de 6 e 7 digitos,
+                        UF, regiao, mesorregiao, regiao imediata e
+                        intermediaria
+    dim_uf              derivada de dim_municipio
+    dim_cnae_classe     673 classes, com grupo, divisao e secao
+    dim_cnae_subclasse  1.332 subclasses
+    dim_codigos         rotulos das variaveis categoricas da RAIS
+    dim_ano             salario minimo de dezembro e deflator IPCA
+                        (base dezembro de 2025)
+
+cubos (tabelas materializadas)
+    fato_vinc_mun          ano x UF x municipio
+    fato_vinc_mun_secao    + secao da CNAE
+    fato_vinc_tamanho      ano x UF x porte do estabelecimento
+    fato_vinc_perfil       sexo x raca x instrucao x faixa etaria
+                           (por UF; por municipio nas UFs de --uf-detalhe)
+    fato_vinc_fluxo_mes    admissoes e desligamentos mes a mes
+    fato_vinc_ocupacao     CBO por municipio (so nas UFs de --uf-detalhe)
+    fato_estab_mun         estabelecimentos por municipio, porte e secao
+
+views de leitura (ja com rotulo e valor deflacionado)
+    v_municipio_ano, v_uf_ano, v_setor_ano, v_perfil_ano
+
+metadados de proveniencia
+    meta_colunas, meta_conversao, meta_download, meta_inventario,
+    meta_cabecalhos, meta_config
+
+
+DUAS ARMADILHAS
+---------------
+
+1) Codigo de municipio e TEXTO de 6 digitos. Rondonia comeca com 11 e
+   Acre com 12, mas se algum passo transformar isso em numero o zero a
+   esquerda some e o join morre calado. Todos os CSVs de apoio sao lidos
+   como texto de proposito.
+
+2) remun_dez_nom e remuneracao NOMINAL do mes de dezembro. Comparar 2013
+   com 2025 sem deflacionar nao mede nada. Use as colunas *_real das
+   views v_*, ou multiplique por dim_ano.deflator.
