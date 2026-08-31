@@ -1,8 +1,13 @@
 # Checagem do banco PDET
 
-- Banco: `C:\\pdet\\pdet.duckdb`
+- Banco: `C:\pdet\pdet.duckdb`
 - Parquet: `E:\pdet\10_parquet`
-- Gerado em: 2026-08-13T16:13:43+00:00
+- Gerado em: 2026-08-31T15:07:23+00:00
+
+## Resumo
+
+- Checagens executadas: **13 de 13**
+- Nenhuma checagem foi pulada.
 
 ## 1. cobertura_ano_uf
 
@@ -50,7 +55,7 @@ Linhas por ano e UF nos vinculos. Uma UF que despenca ou dispara de um ano para 
 | 2015 | AM | 901719 | -6.1 |
 | 2016 | AM | 810272 | -10.1 |
 | 2017 | AM | 797800 | -1.5 |
-| ... | cortado em 40 linhas | | |
+| ... | CORTADO em 40 linhas - use `--limite 0` para o relatorio completo | | |
 
 ## 2. particao_com_varias_origens
 
@@ -58,14 +63,41 @@ Cada particao ano/uf deveria receber dados de UMA unidade de conversao (um arqui
 
 Sem ocorrencias.
 
-## 3. conferencia_com_manifesto
+## 3. anomalia_ano_uf
+
+Recorte curto da checagem 1, so com o que destoa: contagem exatamente igual em UFs diferentes no mesmo ano (dois estados nao empatam na unidade - e o mesmo arquivo lido duas vezes) e variacao anual acima de 25% (queda = truncamento, salto = duplicacao).
+
+| tipo | ano | uf | linhas | variacao_pct |
+|---|---|---|---|---|
+| variacao anual acima de 25% | 2022 | NI | 2338 | 14512.5 |
+| variacao anual acima de 25% | 2023 | RR | 205291 | 30.8 |
+| variacao anual acima de 25% | 2024 | NI | 16544 | 589.3 |
+| variacao anual acima de 25% | 2025 | NI | 6208 | -62.5 |
+
+## 4. conferencia_com_manifesto
 
 Linhas no Parquet x linhas registradas em conversao.csv. Divergencia significa arquivo movido, apagado ou convertido duas vezes.
 
-> FALHOU: CatalogException: Catalog Error: Table with name meta_conversao does not exist!
-Did you mean "meta_colunas"?
+| ano | m_linhas | b_linhas | diferenca |
+|---|---|---|---|
+| 2010 | 387162097 | 66747302 | -320414795 |
+| 2011 | 390734997 | 70971125 | -319763872 |
+| 2012 | 384520723 | 73326485 | -311194238 |
+| 2013 | 446691320 | 75400510 | -371290810 |
+| 2014 | 454294711 | 76107279 | -378187432 |
+| 2015 | 384080479 | 72175102 | -311905377 |
+| 2016 | 374073687 | 67144598 | -306929089 |
+| 2017 | 399817001 | 65655882 | -334161119 |
+| 2018 | 181849776 | 66214692 | -115635084 |
+| 2019 | 182395639 | 66667417 | -115728222 |
+| 2020 | 181304845 | 65921194 | -115383651 |
+| 2021 | 193707558 | 70521981 | -123185577 |
+| 2022 | 216573754 | 78488470 | -138085284 |
+| 2023 | 174342420 | 82966522 | -91375898 |
+| 2024 | 181383490 | 87747220 | -93636270 |
+| 2025 | 265085309 | 91710262 | -173375047 |
 
-## 4. estoque_brasil
+## 5. estoque_brasil
 
 Vinculos ativos em 31/12, Brasil. E a serie que todo relatorio abre. Compare com a RAIS publicada: a ordem de grandeza e de 44 a 55 milhoes no periodo. Se estiver muito acima, ha duplicacao.
 
@@ -88,28 +120,35 @@ Vinculos ativos em 31/12, Brasil. E a serie que todo relatorio abre. Compare com
 | 2024 | 87747220 | 57800651 | 65.9 |
 | 2025 | 91710262 | 60691770 | 66.2 |
 
-## 5. municipio_sem_ibge
+## 6. municipio_sem_ibge
 
 Codigos de municipio que nao existem na tabela do IBGE. Um punhado e normal (municipios extintos, codigo ignorado); muitos indicam coluna trocada de posicao.
 
-> FALHOU: CatalogException: Catalog Error: Table with name dim_municipio does not exist!
-Did you mean "meta_inventario"?
+| ano | cod_mun | linhas |
+|---|---|---|
+| 2024 |  | 16544 |
+| 2025 |  | 6208 |
+| 2023 |  | 2400 |
 
-## 6. uf_incoerente
+## 7. uf_incoerente
 
 A particao uf e derivada dos 2 primeiros digitos do municipio. Se nao bate com a UF do IBGE, a derivacao errou.
 
-> FALHOU: CatalogException: Catalog Error: Table with name dim_municipio does not exist!
-Did you mean "meta_inventario"?
+Sem ocorrencias.
 
-## 7. cnae_sem_dicionario
+## 8. cnae_sem_dicionario
 
 Classes CNAE 2.0 sem correspondencia. Espera-se pouca coisa: codigos zerados e a CNAE 1.0 residual dos anos antigos.
 
-> FALHOU: CatalogException: Catalog Error: Table with name dim_cnae_classe does not exist!
-Did you mean "meta_colunas or pg_namespace"?
+| ano | cnae | linhas |
+|---|---|---|
+| 2022 | 00977 | 6947 |
+| 2025 | 99999 | 3581 |
+| 2024 | 99999 | 3549 |
+| 2023 | 99999 | 1594 |
+| 2022 | 00999 | 280 |
 
-## 8. nulos_nas_colunas_chave
+## 9. nulos_nas_colunas_chave
 
 Percentual de nulos nas colunas que os relatorios usam. Um salto de 0% para 100% num ano e coluna que mudou de posicao no layout.
 
@@ -132,7 +171,7 @@ Percentual de nulos nas colunas que os relatorios usam. Um salto de 0% para 100%
 | 2024 | 0.0 | 0.0 | 0.0 | 0.0 | 40.0 | 0.0 | 0.0 |
 | 2025 | 0.0 | 0.0 | 0.0 | 0.0 | 41.8 | 0.0 | 0.0 |
 
-## 9. remuneracao_suspeita
+## 10. remuneracao_suspeita
 
 Remuneracao de dezembro fora de faixa plausivel entre os ativos. Negativos ou valores estratosfericos denunciam decimal mal lido.
 
@@ -155,14 +194,30 @@ Remuneracao de dezembro fora de faixa plausivel entre os ativos. Negativos ou va
 | 2024 | 0 | 0 | 0 | 2647.1 | 211780.1 |
 | 2025 | 0 | 0 | 0 | 2740.56 | 227643.3 |
 
-## 10. coerencia_com_salario_minimo
+## 11. coerencia_com_salario_minimo
 
 A mediana da remuneracao de dezembro dividida pelo salario minimo do ano deve ficar perto de 1,3 a 1,6. Fora disso, ha erro de escala.
 
-> FALHOU: CatalogException: Catalog Error: Table with name dim_ano does not exist!
-Did you mean "meta_inventario"?
+| ano | mediana_nom | sal_min | mediana_em_sm |
+|---|---|---|---|
+| 2010 | 946.17 | 510.0 | 1.86 |
+| 2011 | 1039.07 | 545.0 | 1.91 |
+| 2012 | 1161.07 | 622.0 | 1.87 |
+| 2013 | 1284.47 | 678.0 | 1.89 |
+| 2014 | 1394.85 | 724.0 | 1.93 |
+| 2015 | 1506.79 | 788.0 | 1.91 |
+| 2016 | 1637.25 | 880.0 | 1.86 |
+| 2017 | 1717.8 | 937.0 | 1.83 |
+| 2018 | 1771.35 | 954.0 | 1.86 |
+| 2019 | 1782.44 | 998.0 | 1.79 |
+| 2020 | 1824.65 | 1045.0 | 1.75 |
+| 2021 | 1995.4 | 1100.0 | 1.81 |
+| 2022 | 2138.77 | 1212.0 | 1.76 |
+| 2023 | 2481.33 | 1320.0 | 1.88 |
+| 2024 | 2647.1 | 1412.0 | 1.87 |
+| 2025 | 2740.56 | 1518.0 | 1.81 |
 
-## 11. colunas_por_esquema
+## 12. colunas_por_esquema
 
 Quais colunas existem em quais anos. E o mapa do que da para comparar na serie historica e do que nao da.
 
@@ -188,7 +243,7 @@ Quais colunas existem em quais anos. E o mapa do que da para comparar na serie h
 | salario_contratual | 2018-2018 |
 | tipo_salario | 2018-2018 |
 
-## 12. estabelecimentos_por_ano
+## 13. estabelecimentos_por_ano
 
 Estabelecimentos declarantes por ano. Serie estavel na casa dos 8 milhoes ate 2022.
 

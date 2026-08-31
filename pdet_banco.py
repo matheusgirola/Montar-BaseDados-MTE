@@ -136,6 +136,16 @@ def tabela_existe(con, nome: str) -> bool:
     return bool(r and r[0])
 
 
+def objeto_existe(con, nome: str) -> bool:
+    """Tabela OU view - as bases (vinculos, estabelecimentos) sao views."""
+    if tabela_existe(con, nome):
+        return True
+    r = con.execute(
+        "SELECT count(*) FROM duckdb_views() WHERE view_name = ?",
+        [nome]).fetchone()
+    return bool(r and r[0])
+
+
 def imprimir(con, sql: str, limite: int = 40) -> None:
     """Mostra o resultado de uma consulta como tabela de texto."""
     rel = con.sql(sql)
@@ -278,6 +288,28 @@ def carregar_csv(con, tabela: str, arquivo: Path):
     return True
 
 
+def procurar_apoio(pedida: Path, arquivos) -> tuple[Path, list[str]]:
+    """Acha a pasta que realmente tem os CSVs de apoio.
+
+    O COMO-RODAR manda passar --dicionarios .\\dicionarios, mas no pacote
+    do projeto os dim_*.csv ficam na raiz. Quando a pasta pedida nao tem
+    nenhum deles, tenta a pasta do script e o diretorio atual antes de
+    desistir - senao o 'criar' segue adiante em silencio e metade das
+    checagens morre depois com 'table does not exist'."""
+    candidatas = [pedida, Path(__file__).resolve().parent, Path.cwd()]
+    vistas, melhor, achados = [], pedida, []
+    for c in candidatas:
+        if c in vistas:
+            continue
+        vistas.append(c)
+        tem = [n for n in arquivos if (c / n).exists()]
+        if len(tem) > len(achados):
+            melhor, achados = c, tem
+        if len(achados) == len(arquivos):
+            break
+    return melhor, [n for n in arquivos if not (melhor / n).exists()]
+
+
 def cmd_criar(a) -> None:
     raiz = Path(a.parquet)
     if not raiz.exists():
@@ -294,7 +326,9 @@ def cmd_criar(a) -> None:
         sys.exit("\nERRO: nenhum Parquet encontrado. Confira --parquet.")
 
     print("\nDimensoes:")
-    dic = Path(a.dicionarios)
+    dic, faltando = procurar_apoio(Path(a.dicionarios), list(DIMENSOES.values()))
+    if dic != Path(a.dicionarios):
+        print(f"  (--dicionarios {a.dicionarios} nao tinha os CSVs; usando {dic})")
     for tabela, arq in DIMENSOES.items():
         ok = carregar_csv(con, tabela, dic / arq)
         n = con.execute(f"SELECT count(*) FROM {tabela}").fetchone()[0] if ok else 0
@@ -329,15 +363,43 @@ def cmd_criar(a) -> None:
         """)
 
     print("\nMetadados de proveniencia:")
-    meta = Path(a.meta)
+    meta, _ = procurar_apoio(Path(a.meta), list(METADADOS.values()))
+    if meta != Path(a.meta):
+        print(f"  (--meta {a.meta} nao tinha os CSVs; usando {meta})")
+    meta_ausentes = []
     for tabela, arq in METADADOS.items():
         ok = carregar_csv(con, tabela, meta / arq)
         n = con.execute(f"SELECT count(*) FROM {tabela}").fetchone()[0] if ok else 0
-        print(f"  {tabela:22s} {'OK  ' + fmt(n) + ' linhas' if ok else 'ausente (' + arq + ') - opcional'}")
+        print(f"  {tabela:22s} {'OK  ' + fmt(n) + ' linhas' if ok else 'AUSENTE (' + arq + ')'}")
+        if not ok:
+            meta_ausentes.append(arq)
 
     config_gravar(con, "raiz_parquet", str(raiz))
     config_gravar(con, "dicionarios", str(dic))
+    config_gravar(con, "meta", str(meta))
     config_gravar(con, "criado_em", agora())
+
+    if faltando or meta_ausentes:
+        print("\n" + "=" * 70)
+        print("ATENCAO: apoio incompleto. As checagens que dependem destes")
+        print("arquivos vao ser PULADAS, e um relatorio pela metade nao e")
+        print("atestado de que a base esta boa.")
+        for arq in faltando:
+            print(f"  - {arq:24s} (dimensao)  procurado em {dic}")
+        for arq in meta_ausentes:
+            print(f"  - {arq:24s} (metadado)  procurado em {meta}")
+        if "conversao.csv" in meta_ausentes:
+            print("\n  conversao.csv e manifesto.csv sao gravados pelo")
+            print("  pdet_parquet.py / pdet_download.py na raiz de dados")
+            print("  (E:\\pdet), nao na pasta do projeto. Sem conversao.csv a")
+            print("  checagem 'conferencia_com_manifesto' - a que compara as")
+            print("  linhas do Parquet com as que a conversao diz ter escrito -")
+            print("  nao roda. Aponte --meta para onde eles estao.")
+        print("=" * 70)
+        if not a.parcial:
+            sys.exit("\nERRO: rode de novo apontando --dicionarios/--meta para "
+                     "as pastas certas, ou use --parcial para aceitar o banco "
+                     "incompleto de proposito.")
 
     print("\nInventario rapido (contagem por ano - le so o rodape dos "
           "Parquet, e rapido):")
@@ -375,11 +437,46 @@ CHECAGENS = [
      "Cada particao ano/uf deveria receber dados de UMA unidade de conversao "
      "(um arquivo do FTP). Duas ou mais = provavel duplicacao de linhas.",
      """
-     SELECT ano, uf, count(DISTINCT regexp_extract(filename,
-                'u([0-9a-f]+)_', 1)) AS origens,
-            count(*) AS arquivos_parquet
-     FROM (SELECT ano, uf, filename FROM arq_rais_vinculos GROUP BY ALL)
-     GROUP BY ano, uf HAVING origens > 1 ORDER BY ano, uf
+     WITH f AS (
+       SELECT ano, uf, filename,
+              -- so o nome do arquivo, e o token ancorado: aplicado ao
+              -- caminho inteiro o padrao casava com 'ue' de /dados_ue_/ e
+              -- com 'uf' de /uf=AC/, devolvia lixo igual para todo mundo e
+              -- a checagem passava sempre - falso negativo silencioso.
+              regexp_extract(regexp_extract(filename, '[^/\\\\]+$'),
+                             '^u([0-9a-f]{10})_', 1) AS token
+       FROM arq_rais_vinculos GROUP BY ALL)
+     SELECT ano, uf, count(DISTINCT token) AS origens,
+            count(*) AS arquivos_parquet,
+            count(*) FILTER (WHERE token = '') AS sem_token,
+            string_agg(DISTINCT token, ', ') AS tokens
+     FROM f GROUP BY ano, uf
+     HAVING count(DISTINCT token) > 1 OR count(*) FILTER (WHERE token = '') > 0
+     ORDER BY ano, uf
+     """),
+
+    ("anomalia_ano_uf",
+     "Recorte curto da checagem 1, so com o que destoa: contagem exatamente "
+     "igual em UFs diferentes no mesmo ano (dois estados nao empatam na "
+     "unidade - e o mesmo arquivo lido duas vezes) e variacao anual acima "
+     "de 25% (queda = truncamento, salto = duplicacao).",
+     """
+     WITH c AS (SELECT ano, uf, count(*) AS linhas
+                FROM src_rais_vinculos GROUP BY 1, 2),
+     gemeas AS (SELECT ano, linhas, string_agg(uf, '+' ORDER BY uf) AS ufs
+                FROM c GROUP BY 1, 2 HAVING count(*) > 1),
+     serie AS (SELECT ano, uf, linhas,
+                      lag(linhas) OVER (PARTITION BY uf ORDER BY ano) AS ant
+               FROM c)
+     SELECT 'contagem identica entre UFs' AS tipo, ano, ufs AS uf,
+            linhas, CAST(NULL AS DOUBLE) AS variacao_pct
+     FROM gemeas
+     UNION ALL
+     SELECT 'variacao anual acima de 25%', ano, uf, linhas,
+            round(100.0 * linhas / ant - 100, 1)
+     FROM serie
+     WHERE ant IS NOT NULL AND abs(100.0 * linhas / ant - 100) > 25
+     ORDER BY tipo, ano, uf
      """),
 
     ("conferencia_com_manifesto",
@@ -507,6 +604,27 @@ CHECAGENS = [
 ]
 
 
+# Tabelas de apoio que cada checagem exige. Sem isso o 'checar' antigo
+# gravava um "FALHOU: table does not exist" no meio do relatorio, do mesmo
+# tamanho de um erro de verdade, e o resumo final nao existia - dava para
+# ler um relatorio com 5 de 12 checagens mortas como se fosse aprovacao.
+DEPENDE = {
+    "conferencia_com_manifesto": ["meta_conversao"],
+    "municipio_sem_ibge": ["dim_municipio"],
+    "uf_incoerente": ["dim_municipio"],
+    "cnae_sem_dicionario": ["dim_cnae_classe"],
+    "coerencia_com_salario_minimo": ["dim_ano"],
+    "colunas_por_esquema": ["meta_colunas"],
+    "estabelecimentos_por_ano": ["estabelecimentos"],
+    "cobertura_ano_uf": ["src_rais_vinculos"],
+    "anomalia_ano_uf": ["src_rais_vinculos"],
+    "particao_com_varias_origens": ["arq_rais_vinculos"],
+    "estoque_brasil": ["vinculos"],
+    "nulos_nas_colunas_chave": ["vinculos"],
+    "remuneracao_suspeita": ["vinculos"],
+}
+
+
 def cmd_checar(a) -> None:
     con = abrir(a.banco, a.memoria, a.threads, a.tmp, leitura=False)
     saida = Path(a.saida) if a.saida else Path("checagem_banco.md")
@@ -522,43 +640,85 @@ def cmd_checar(a) -> None:
             print(f"{nome}\n    {desc}\n")
         return
 
+    limite = a.limite if a.limite and a.limite > 0 else None
+    veredito = {}          # nome -> "ok" | "achou" | "pulada" | "falhou"
+
     for i, (nome, desc, sql) in enumerate(escolhidas, 1):
         print(f"\n[{i}/{len(escolhidas)}] {nome}")
         print(f"  {desc}")
         t0 = time.time()
         linhas += [f"## {i}. {nome}", "", desc, ""]
+
+        ausentes = [t for t in DEPENDE.get(nome, [])
+                    if not objeto_existe(con, t)]
+        if ausentes:
+            msg = ("PULADA: falta " + ", ".join(f"`{t}`" for t in ausentes)
+                   + ". Esta checagem NAO rodou - rode `criar` de novo "
+                     "apontando --parquet para a raiz certa e "
+                     "--dicionarios/--meta para as pastas com os CSVs "
+                     "de apoio.")
+            print(f"  {msg}")
+            linhas += [f"> {msg}", ""]
+            veredito[nome] = "pulada"
+            continue
+
         try:
             rel = con.sql(sql)
             cols = rel.columns
-            dados = rel.fetchmany(a.limite + 1)
-            cortado = len(dados) > a.limite
-            dados = dados[:a.limite]
+            dados = rel.fetchall() if limite is None else rel.fetchmany(limite + 1)
+            cortado = limite is not None and len(dados) > limite
+            if cortado:
+                dados = dados[:limite]
         except Exception as e:                               # noqa: BLE001
             msg = f"FALHOU: {type(e).__name__}: {str(e)[:300]}"
             print(f"  {msg}")
             linhas += [f"> {msg}", ""]
+            veredito[nome] = "falhou"
             continue
         dt = time.time() - t0
         if not dados:
             print(f"  sem ocorrencias ({dt:.1f}s)")
             linhas += ["Sem ocorrencias.", ""]
+            veredito[nome] = "ok"
             continue
         print(f"  {len(dados)} linha(s) em {dt:.1f}s")
+        veredito[nome] = "achou"
         linhas.append("| " + " | ".join(cols) + " |")
         linhas.append("|" + "|".join("---" for _ in cols) + "|")
         for d in dados:
             linhas.append("| " + " | ".join(
                 "" if v is None else str(v) for v in d) + " |")
         if cortado:
-            linhas.append(f"| ... | cortado em {a.limite} linhas |"
+            linhas.append(f"| ... | CORTADO em {limite} linhas - use "
+                          f"`--limite 0` para o relatorio completo |"
                           + " |" * (len(cols) - 2))
         linhas.append("")
         if a.mostrar:
-            imprimir(con, sql, limite=min(a.limite, 25))
+            imprimir(con, sql, limite=25 if limite is None else min(limite, 25))
+
+    # resumo no topo: quantas checagens de fato rodaram
+    mortas = [n for n, v in veredito.items() if v in ("pulada", "falhou")]
+    rodaram = len(veredito) - len(mortas)
+    resumo = ["## Resumo", "",
+              f"- Checagens executadas: **{rodaram} de {len(escolhidas)}**"]
+    if mortas:
+        resumo += [f"- **Nao executadas: {len(mortas)}** - "
+                   + ", ".join(f"`{n}` ({veredito[n]})" for n in mortas),
+                   "",
+                   "> Enquanto essas nao rodarem, este relatorio nao autoriza "
+                   "`agregar`: as checagens que faltam sao justamente as que "
+                   "cruzam o Parquet com a proveniencia e com as tabelas do "
+                   "IBGE."]
+    else:
+        resumo.append("- Nenhuma checagem foi pulada.")
+    resumo.append("")
+    linhas[6:6] = resumo
 
     saida.write_text("\n".join(linhas), encoding="utf-8")
     con.close()
-    print(f"\nRelatorio: {saida.resolve()}")
+    print(f"\n{rodaram} de {len(escolhidas)} checagens executadas."
+          + (f" NAO executadas: {', '.join(mortas)}" if mortas else ""))
+    print(f"Relatorio: {saida.resolve()}")
 
 
 # ===========================================================================
@@ -972,30 +1132,52 @@ def cmd_sql(a) -> None:
 # main
 # ===========================================================================
 
+def argumentos_globais(parser, depois: bool = False) -> None:
+    """--banco, --memoria, --threads, --tmp e --limite.
+
+    Declarados duas vezes: no parser de cima e, com default SUPPRESS, em
+    cada subcomando. Assim tanto '--banco X criar' quanto 'criar --banco X'
+    funcionam, e quem nao passar nada depois do subcomando nao perde o que
+    passou antes."""
+    d = (lambda v: argparse.SUPPRESS) if depois else (lambda v: v)
+    parser.add_argument("--banco", default=d("pdet.duckdb"),
+                        help="arquivo .duckdb no disco INTERNO (nunca no HD "
+                             "externo nem em pasta sincronizada)")
+    parser.add_argument("--memoria", type=float, default=d(9.0),
+                        help="GB de RAM para o DuckDB (padrao 9, de 16 GB)")
+    parser.add_argument("--threads", type=int, default=d(8))
+    parser.add_argument("--tmp", default=d(""),
+                        help="pasta de spill no disco INTERNO")
+    parser.add_argument("--limite", type=int, default=d(40),
+                        help="linhas por tabela no relatorio; 0 = sem corte")
+
+
 def main() -> None:
     p_ = argparse.ArgumentParser(
         description="Banco analitico DuckDB sobre o Parquet da RAIS",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__)
-    p_.add_argument("--banco", default="pdet.duckdb",
-                    help="arquivo .duckdb no disco INTERNO (nunca no HD "
-                         "externo nem em pasta sincronizada)")
-    p_.add_argument("--memoria", type=float, default=9.0,
-                    help="GB de RAM para o DuckDB (padrao 9, de 16 GB)")
-    p_.add_argument("--threads", type=int, default=8)
-    p_.add_argument("--tmp", default="",
-                    help="pasta de spill no disco INTERNO")
-    p_.add_argument("--limite", type=int, default=40)
+    argumentos_globais(p_)
+    # Os mesmos globais tambem depois do subcomando: 'criar --banco X' e a
+    # ordem que todo mundo tenta primeiro, e um "unrecognized arguments"
+    # seco nao ajuda ninguem. SUPPRESS e o que faz a versao de depois nao
+    # sobrescrever com o default a versao de antes.
+    globais_depois = argparse.ArgumentParser(add_help=False)
+    argumentos_globais(globais_depois, depois=True)
     sub = p_.add_subparsers(dest="cmd", required=True)
 
-    c = sub.add_parser("criar", help="views, dimensoes e metadados")
+    c = sub.add_parser("criar", help="views, dimensoes e metadados",
+                   parents=[globais_depois])
     c.add_argument("--parquet", required=True)
     c.add_argument("--dicionarios", default="dicionarios")
+    c.add_argument("--parcial", action="store_true",
+                   help="aceita apoio incompleto (checagens serao puladas)")
     c.add_argument("--meta", default=".",
                    help="pasta com conversao.csv, manifesto.csv, dic_rais.csv")
     c.set_defaults(func=cmd_criar)
 
-    c = sub.add_parser("checar", help="bateria de integridade")
+    c = sub.add_parser("checar", help="bateria de integridade",
+                   parents=[globais_depois])
     c.add_argument("--saida", default="")
     c.add_argument("--checagem", action="append", default=[])
     c.add_argument("--listar", action="store_true")
@@ -1003,19 +1185,22 @@ def main() -> None:
                    help="tambem imprime as tabelas na tela")
     c.set_defaults(func=cmd_checar)
 
-    c = sub.add_parser("codigos", help="codigos observados x rotulados")
+    c = sub.add_parser("codigos", help="codigos observados x rotulados",
+                   parents=[globais_depois])
     c.add_argument("--saida", default="")
     c.add_argument("--ano", default="")
     c.set_defaults(func=cmd_codigos)
 
-    c = sub.add_parser("agregar", help="materializa os cubos")
+    c = sub.add_parser("agregar", help="materializa os cubos",
+                   parents=[globais_depois])
     c.add_argument("--ano", action="append", default=[],
                    help="so estes anos (repetivel). Sem isso, refaz tudo.")
     c.add_argument("--uf-detalhe", action="append", default=[],
                    help="UFs com detalhe municipal extra (ex.: --uf-detalhe PI)")
     c.set_defaults(func=cmd_agregar)
 
-    c = sub.add_parser("consulta", help="roda consultas nomeadas")
+    c = sub.add_parser("consulta", help="roda consultas nomeadas",
+                   parents=[globais_depois])
     c.add_argument("--arquivo", default="consultas.sql")
     c.add_argument("--nome", default="")
     c.add_argument("--param", action="append", default=[],
@@ -1024,7 +1209,8 @@ def main() -> None:
     c.add_argument("--listar", action="store_true")
     c.set_defaults(func=cmd_consulta)
 
-    c = sub.add_parser("sql", help="roda um SQL avulso")
+    c = sub.add_parser("sql", help="roda um SQL avulso",
+                   parents=[globais_depois])
     c.add_argument("sql", help="o SQL, ou '-' para ler da entrada padrao")
     c.add_argument("--csv", default="")
     c.add_argument("--somente-leitura", action="store_true")

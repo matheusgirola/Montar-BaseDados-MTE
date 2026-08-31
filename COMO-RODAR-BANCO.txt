@@ -10,7 +10,9 @@ Onde cada coisa vai:
     E:\pdet\10_parquet     Parquet (fonte da verdade, HD externo)
     C:\pdet\pdet.duckdb    banco (disco interno, fora do OneDrive)
     C:\pdet\tmp            spill do DuckDB (disco interno)
-    .\dicionarios\         os 5 CSVs de apoio deste pacote
+    .\                     os 5 dim_*.csv de apoio deste pacote
+    E:\pdet\               conversao.csv e manifesto.csv, gravados
+                           la pelo pdet_parquet / pdet_download
 
 
 PASSO 1 -- CRIAR AS VIEWS E AS DIMENSOES  (segundos)
@@ -19,13 +21,32 @@ PASSO 1 -- CRIAR AS VIEWS E AS DIMENSOES  (segundos)
     uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
         --tmp C:\pdet\tmp `
         criar --parquet E:\pdet\10_parquet `
-              --dicionarios .\dicionarios `
-              --meta .
+              --dicionarios . `
+              --meta E:\pdet
 
-O --meta aponta para a pasta onde estao conversao.csv, manifesto.csv,
-dic_rais.csv, inventario_ftp.csv e cabecalhos.csv. Eles viram tabelas
-meta_* dentro do banco, para que a proveniencia de cada numero fique
-consultavel junto com o numero.
+ATENCAO aos dois caminhos acima -- errar um deles nao quebra nada na
+hora, mas mata checagens depois:
+
+  --dicionarios  pasta com os cinco dim_*.csv (dim_municipio,
+                 dim_cnae_classe, dim_cnae_subclasse, dim_codigos,
+                 dim_ano). Neste pacote eles estao na RAIZ do projeto,
+                 nao em .\dicionarios. Sem eles, as checagens 6, 7, 8
+                 e 11 nao rodam.
+
+  --meta         pasta com conversao.csv, manifesto.csv, dic_rais.csv,
+                 inventario_ftp.csv e cabecalhos.csv. Os tres ultimos
+                 estao no projeto; conversao.csv e manifesto.csv sao
+                 gravados pelo pdet_parquet.py / pdet_download.py na
+                 raiz de DADOS (E:\pdet). Sem conversao.csv a checagem
+                 'conferencia_com_manifesto' nao roda -- e ela e a que
+                 compara linha a linha o Parquet com o que a conversao
+                 diz ter escrito.
+
+Se o 'criar' nao achar algum desses CSVs na pasta pedida, ele procura na
+pasta do script e no diretorio atual antes de desistir, e no fim aborta
+listando o que faltou. Use --parcial se quiser mesmo um banco incompleto.
+Eles viram tabelas meta_* dentro do banco, para que a proveniencia de
+cada numero fique consultavel junto com o numero.
 
 Rode este comando de novo sempre que:
   - converter um ano novo para Parquet
@@ -42,8 +63,23 @@ PASSO 2 -- CHECAR ANTES DE AGREGAR  (minutos)
 Gera checagem_banco.md. NAO pule este passo: agregar em cima de dado
 duplicado produz relatorio errado que parece certo.
 
+Leia primeiro o bloco "## Resumo" no topo do relatorio. Ele diz quantas
+das checagens de fato rodaram. Uma checagem marcada PULADA nao encontrou
+nada de errado -- ela nao chegou a olhar. So siga para o PASSO 5 quando
+o resumo disser que todas rodaram.
+
+As tres primeiras sao as que respondem a pergunta da duplicacao:
+
+  1 cobertura_ano_uf             serie completa por ano e UF (~430 linhas;
+                                 use --limite 0 para nao cortar)
+  2 particao_com_varias_origens  duas unidades de conversao gravando na
+                                 mesma particao ano/uf = linha duplicada
+  3 anomalia_ano_uf              o resumo curto da 1: contagem identica
+                                 entre UFs e variacao anual acima de 25%
+
 Para ver o que cada checagem faz:  checar --listar
 Para rodar so uma:                 checar --checagem estoque_brasil
+Relatorio sem cortes:              --limite 0 checar
 
 
 PASSO 3 -- COMPLETAR OS ROTULOS  (opcional, uma vez)
@@ -53,7 +89,7 @@ PASSO 3 -- COMPLETAR OS ROTULOS  (opcional, uma vez)
         --tmp C:\pdet\tmp codigos
 
 Lista todo codigo que aparece na base e diz quais nao tem rotulo em
-dicionarios\dim_codigos.csv. Complete o CSV pelo layout oficial do MTE e
+dim_codigos.csv. Complete o CSV pelo layout oficial do MTE e
 rode o PASSO 1 de novo.
 
 Atencao: em dim_codigos.csv a coluna 'confianca' vale 'alta' ou
