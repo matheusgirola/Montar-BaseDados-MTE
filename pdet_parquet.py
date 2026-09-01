@@ -762,8 +762,11 @@ def main() -> None:
             print("               no OneDrive.")
 
     # --- monta a lista de unidades ------------------------------------
+    # O "._" exclui os AppleDouble que o macOS cria em exFAT/FAT: eles casam
+    # com *.7z, mas sao sidecars de metadados de 4 KB, nao arquivos de dados.
     arquivos = sorted(q for q in raiz.rglob("*")
-                      if q.suffix.lower() in (".7z", ".zip"))
+                      if q.suffix.lower() in (".7z", ".zip")
+                      and not q.name.startswith("._"))
     tarefas, ignorados = [], []
     for arq in arquivos:
         motivo = excluir_por_pasta(str(arq), a.incluir_parcial, a.incluir_legado)

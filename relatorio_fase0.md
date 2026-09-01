@@ -1,9 +1,9 @@
 # Fase 0 — Inventário do FTP do PDET
 
 - Origem: `ftp://ftp.mtps.gov.br/pdet/microdados`
-- Gerado em: 2026-08-04 10:29 Hora oficial do Brasil
-- Arquivos: **3.364**
-- Volume comprimido: **79,5 GB**
+- Gerado em: 2026-08-31 15:14 -03
+- Arquivos: **3.367**
+- Volume comprimido: **79,6 GB**
 
 ## Volume por base
 
@@ -11,13 +11,13 @@
 |------------------|-------|------------|----------------|----------|-------|
 | RAIS_VINCULOS    |    79 |    33,6 GB |       335,9 GB |  53,7 GB | 42,2% |
 | RAIS_OUTRO       |   947 |    30,9 GB |       309,4 GB |  49,5 GB | 38,9% |
-| NOVO_CAGED_MOV   |   273 |     8,7 GB |        86,8 GB |  13,9 GB | 10,9% |
+| NOVO_CAGED_MOV   |   274 |     8,7 GB |        87,3 GB |  14,0 GB | 11,0% |
 | CAGED_ANTIGO     |   284 |     4,2 GB |        41,7 GB |   6,7 GB |  5,2% |
 | RAIS_ESTAB       |    12 |     1,3 GB |        12,8 GB |   2,0 GB |  1,6% |
 | NOVO_CAGED_OUTRO |   201 |   715,3 MB |         7,0 GB |   1,1 GB |  0,9% |
-| NOVO_CAGED_FOR   |    77 |    94,4 MB |       944,3 MB | 151,1 MB |  0,1% |
+| NOVO_CAGED_FOR   |    78 |    95,3 MB |       953,3 MB | 152,5 MB |  0,1% |
 | AUXILIAR_DOC     | 1.416 |    47,0 MB |       470,4 MB |  75,3 MB |  0,1% |
-| NOVO_CAGED_EXC   |    75 |     7,7 MB |        76,5 MB |  12,2 MB |  0,0% |
+| NOVO_CAGED_EXC   |    76 |     7,8 MB |        77,8 MB |  12,4 MB |  0,0% |
 
 > Estimativas usam fatores 10.0x (descompactação) e 1.6x (parquet zstd, todas as colunas). São chutes: meça 1 arquivo real na Fase 1 e recalibre com `--fator-descompacta` / `--fator-parquet`.
 
@@ -66,19 +66,19 @@
 | 2023 |   61 |     9,8 GB |  15,6 GB |
 | 2024 |   55 |     6,9 GB |  11,1 GB |
 | 2025 |   46 |     4,6 GB |   7,4 GB |
-| 2026 |   18 |   319,8 MB | 511,7 MB |
+| 2026 |   21 |   373,5 MB | 597,6 MB |
 
 **Custo de escopo — últimos N anos (em parquet):**
 
 | escopo               | ~parquet acumulado |
 |----------------------|--------------------|
-| 1 ano(s) (até 2026)  |           511,7 MB |
-| 3 ano(s) (até 2024)  |            19,0 GB |
-| 5 ano(s) (até 2022)  |            40,2 GB |
-| 10 ano(s) (até 2017) |            77,1 GB |
+| 1 ano(s) (até 2026)  |           597,6 MB |
+| 3 ano(s) (até 2024)  |            19,1 GB |
+| 5 ano(s) (até 2022)  |            40,3 GB |
+| 10 ano(s) (até 2017) |            77,2 GB |
 | 15 ano(s) (até 2012) |            95,4 GB |
-| 20 ano(s) (até 2007) |           108,0 GB |
-| 42 ano(s) (até 1985) |           127,1 GB |
+| 20 ano(s) (até 2007) |           108,1 GB |
+| 42 ano(s) (até 1985) |           127,2 GB |
 
 ## RAIS por recorte geográfico
 
@@ -123,7 +123,7 @@
 
 | ext  |  arqs |    bytes |
 |------|-------|----------|
-| 7z   | 1.935 |  78,9 GB |
+| 7z   | 1.938 |  79,0 GB |
 | rds  |     1 | 336,8 MB |
 | zip  |     5 | 199,3 MB |
 | xls  | 1.401 |  45,0 MB |
