@@ -533,8 +533,11 @@ def main() -> None:
           else f"Dicionário : {a.dic} não encontrado — sem conferência",
           file=sys.stderr)
 
+    # "._" descarta os AppleDouble do macOS em exFAT/FAT (sidecars de 4 KB
+    # que casam com *.7z mas nao sao arquivos de dados).
     arquivos = sorted(q for q in raiz.rglob("*")
                       if q.suffix.lower() in (".7z", ".zip")
+                      and not q.name.startswith("._")
                       and a.filtro.upper() in str(q).upper())
     if a.amostra:
         arquivos = arquivos[:a.amostra]

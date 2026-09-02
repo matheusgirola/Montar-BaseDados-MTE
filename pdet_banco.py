@@ -203,7 +203,10 @@ def criar_views(con, raiz: Path, verboso: bool = True) -> dict:
     """Uma view 'src_*' crua por base e uma view enriquecida por cima."""
     achadas = {}
     for base, pasta in BASES.items():
-        glob = f"{p(raiz / pasta)}/**/*.parquet"
+        # "[!.]" descarta os AppleDouble ("._nome.parquet") que o macOS cria
+        # ao gravar em exFAT: eles casam com *.parquet e o DuckDB morre com
+        # "No magic bytes found at end of file". Inocuo em Linux/Windows.
+        glob = f"{p(raiz / pasta)}/**/[!.]*.parquet"
         cols = colunas_do_parquet(con, glob)
         if not cols:
             if verboso:

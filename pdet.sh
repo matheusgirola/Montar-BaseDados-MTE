@@ -19,9 +19,19 @@ set -Eeuo pipefail
 # >>> AJUSTE AQUI: raiz do projeto no HD externo <<<
 # macOS: /Volumes/NOME_DO_DRIVE/pdet
 # Linux: /media/$USER/NOME_DO_DRIVE/pdet  ou  /mnt/dados/pdet
-DADOS="${PDET_DADOS:-/Volumes/Dados/pdet}"
+DADOS="${PDET_DADOS:-/Volumes/HD E. 500GB/pdet}"
 
-RAIZ="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Caminho do proprio script. Usa BASH_SOURCE quando existe (bash) e cai em
+# $0 quando o script foi invocado por outro shell (ex.: `zsh pdet.sh`).
+_ESTE="${BASH_SOURCE[0]:-$0}"
+
+# Se nao estamos no bash, reexecuta no bash: o resto do script usa arrays e
+# expansoes que o zsh interpreta de outro jeito.
+if [ -z "${BASH_VERSION:-}" ]; then
+  exec bash "$_ESTE" "$@"
+fi
+
+RAIZ="$(cd "$(dirname "$_ESTE")" && pwd)"
 SO="$(uname -s)"
 
 # cores só se for terminal interativo
@@ -47,8 +57,11 @@ fi
 # ---------------------------------------------------------------------------
 # 2. Python
 # ---------------------------------------------------------------------------
+# O ambiente do projeto vem primeiro: e ele que tem duckdb, py7zr e pyarrow.
+# O python3 do PATH (Anaconda, /usr/bin) serve para o download, que so usa a
+# biblioteca padrao, mas nao para converter nem montar o banco.
 PY=""
-for c in python3 python; do
+for c in "$RAIZ/.venv/bin/python" "${VIRTUAL_ENV:-}/bin/python" python3 python; do
   if command -v "$c" >/dev/null 2>&1; then
     if "$c" -c 'import sys; sys.exit(0 if sys.version_info>=(3,8) else 1)' 2>/dev/null; then
       PY="$c"; break
@@ -75,7 +88,10 @@ checar_drive() {
       local vol; vol="$(echo "$DADOS" | cut -d/ -f1-3)"
       [[ -d "$vol" ]] || erro "Drive não montado em $vol. Conecte o HD externo."
     fi
-    local fs; fs="$(diskutil info "$ponto" 2>/dev/null | awk -F': *' '/Type \(Bundle\)/{print $2; exit}')"
+    # diskutil so aceita ponto de montagem ou device, nunca um subdiretorio:
+    # descobre o device via df (campo 1 nunca tem espaco) e pergunta a ele.
+    local dev; dev="$(df -P "$ponto" 2>/dev/null | awk 'NR==2{print $1}')" || dev=""
+    local fs; fs="$(diskutil info "${dev:-$ponto}" 2>/dev/null | awk -F': *' '/Type \(Bundle\)/{print $2; exit}')" || fs=""
     local livre; livre="$(df -h "$ponto" | awk 'NR==2{print $4}')"
     info "Drive        : ${fs:-desconhecido} — $livre livres em $ponto"
     case "$fs" in
@@ -165,7 +181,8 @@ case "$COMANDO" in
       esac
     done
     (( EXTRAIR )) && checar_7z
-    ARGS=("$PY" pdet_download.py --dados "$DADOS" "${PASS[@]}")
+    ARGS=("$PY" pdet_download.py --dados "$DADOS")
+    (( ${#PASS[@]} )) && ARGS+=("${PASS[@]}")
     ;;
   *)
     erro "comando desconhecido: $COMANDO (use: inventario | relatorio | baixar)"
