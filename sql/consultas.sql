@@ -24,7 +24,8 @@ SELECT ano,
        sum(desligados)                                   AS desligamentos,
        sum(admitidos) - sum(desligados)                  AS saldo,
        round(sum(massa_dez) / 1e9, 2)                    AS massa_dez_bilhoes,
-       round(sum(massa_dez) / nullif(sum(ativos), 0), 2) AS remun_dez_media
+       round(sum(massa_dez) / nullif(sum(ativos_com_remun), 0), 2)
+           AS remun_dez_media
 FROM fato_vinc_mun
 GROUP BY ano ORDER BY ano;
 
@@ -94,7 +95,8 @@ SELECT ano, cnae_secao, any_value(desc_secao) AS setor,
        round(100.0 * sum(ativos) / sum(sum(ativos)) OVER (PARTITION BY ano), 1)
            AS part_pct,
        sum(saldo) AS saldo,
-       round(sum(massa_dez) / nullif(sum(ativos), 0), 2) AS remun_dez_media
+       round(sum(massa_dez) / nullif(sum(ativos_com_remun), 0), 2)
+           AS remun_dez_media
 FROM v_setor_ano
 WHERE uf = '${uf}'
 GROUP BY ano, cnae_secao
@@ -108,7 +110,8 @@ SELECT cnae_secao, any_value(desc_secao) AS setor,
        round(100.0 * sum(ativos) / sum(sum(ativos)) OVER (), 1) AS part_pct,
        sum(admitidos) AS admissoes, sum(desligados) AS desligamentos,
        sum(saldo) AS saldo,
-       round(sum(massa_dez) / nullif(sum(ativos), 0), 2) AS remun_dez_media
+       round(sum(massa_dez) / nullif(sum(ativos_com_remun), 0), 2)
+           AS remun_dez_media
 FROM v_setor_ano
 WHERE cod_mun = '${cod_mun}' AND ano = ${ano}
 GROUP BY cnae_secao
@@ -132,14 +135,17 @@ SELECT ano, uf,
        sum(ativos) FILTER (WHERE sexo = 1) AS ativos_homens,
        sum(ativos) FILTER (WHERE sexo = 2) AS ativos_mulheres,
        round(sum(massa_dez) FILTER (WHERE sexo = 1)
-             / nullif(sum(ativos) FILTER (WHERE sexo = 1), 0), 2) AS remun_homens,
+             / nullif(sum(ativos_com_remun) FILTER (WHERE sexo = 1), 0), 2)
+           AS remun_homens,
        round(sum(massa_dez) FILTER (WHERE sexo = 2)
-             / nullif(sum(ativos) FILTER (WHERE sexo = 2), 0), 2) AS remun_mulheres,
+             / nullif(sum(ativos_com_remun) FILTER (WHERE sexo = 2), 0), 2)
+           AS remun_mulheres,
        round(100.0 * (
              (sum(massa_dez) FILTER (WHERE sexo = 2)
-              / nullif(sum(ativos) FILTER (WHERE sexo = 2), 0))
+              / nullif(sum(ativos_com_remun) FILTER (WHERE sexo = 2), 0))
            / nullif(sum(massa_dez) FILTER (WHERE sexo = 1)
-              / nullif(sum(ativos) FILTER (WHERE sexo = 1), 0), 0) - 1), 1)
+              / nullif(sum(ativos_com_remun) FILTER (WHERE sexo = 1), 0), 0)
+             - 1), 1)
            AS hiato_pct
 FROM fato_vinc_perfil
 GROUP BY ano, uf
@@ -151,7 +157,8 @@ ORDER BY uf, ano;
 SELECT grau_instrucao, any_value(instrucao_rot) AS instrucao,
        sum(ativos) AS estoque_3112,
        round(100.0 * sum(ativos) / sum(sum(ativos)) OVER (), 1) AS part_pct,
-       round(sum(massa_dez) / nullif(sum(ativos), 0), 2) AS remun_dez_media
+       round(sum(massa_dez) / nullif(sum(ativos_com_remun), 0), 2)
+           AS remun_dez_media
 FROM v_perfil_ano
 WHERE uf = '${uf}' AND ano = ${ano}
 GROUP BY grau_instrucao
@@ -162,7 +169,8 @@ ORDER BY grau_instrucao;
 -- @desc: Cruzamento raca/cor por sexo numa UF e ano. Parametros: uf, ano.
 SELECT raca_rot AS raca_cor, sexo_rot AS sexo,
        sum(ativos) AS estoque_3112,
-       round(sum(massa_dez) / nullif(sum(ativos), 0), 2) AS remun_dez_media
+       round(sum(massa_dez) / nullif(sum(ativos_com_remun), 0), 2)
+           AS remun_dez_media
 FROM v_perfil_ano
 WHERE uf = '${uf}' AND ano = ${ano}
 GROUP BY raca_rot, sexo_rot, raca_cor, sexo
@@ -207,7 +215,8 @@ ORDER BY e.tamanho_estab;
 -- @nome: top_ocupacoes
 -- @desc: Ocupacoes (CBO) mais frequentes num municipio. Exige --uf-detalhe na agregacao. Parametros: cod_mun, ano.
 SELECT cbo_2002, sum(ativos) AS estoque_3112,
-       round(sum(ativos * remun_dez_media) / nullif(sum(ativos), 0), 2)
+       round(sum(ativos_com_remun * remun_dez_media)
+             / nullif(sum(ativos_com_remun), 0), 2)
            AS remun_dez_media,
        sum(admitidos) AS admissoes
 FROM fato_vinc_ocupacao
@@ -258,7 +267,8 @@ SELECT count(*)                                             AS linhas,
        count(DISTINCT cod_mun)                              AS municipios,
        count(DISTINCT cnae20_classe)                        AS classes_cnae,
        min(remun_dez_nom)                                   AS remun_min,
-       round(median(remun_dez_nom), 2)                      AS remun_mediana,
+       round(median(remun_dez_nom)
+             FILTER (WHERE remun_dez_nom > 0), 2)           AS remun_mediana,
        max(remun_dez_nom)                                   AS remun_max,
        round(avg(idade), 1)                                 AS idade_media
 FROM vinculos WHERE uf = '${uf}' AND ano = ${ano};

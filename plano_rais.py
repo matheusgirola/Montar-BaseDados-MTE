@@ -48,7 +48,7 @@ def eh_doc(r):
 def main():
     p = argparse.ArgumentParser(description=__doc__,
             formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--csv", default="inventario_ftp.csv")
+    p.add_argument("--csv", default="estado/inventario_ftp.csv")
     p.add_argument("--de", type=int, default=2022)
     p.add_argument("--ate", type=int, default=2025)
     p.add_argument("--uf", default="PI", help="UF de interesse (padrão PI)")

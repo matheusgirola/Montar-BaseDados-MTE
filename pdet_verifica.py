@@ -154,8 +154,8 @@ def main() -> None:
     p.add_argument("--manifesto", default="",
                    help="conversao.csv: verifica os que deram erro")
     p.add_argument("--arquivo", action="append", default=[])
-    p.add_argument("--inventario", default="inventario_ftp.csv")
-    p.add_argument("--saida", default="refazer_download.txt")
+    p.add_argument("--inventario", default="estado/inventario_ftp.csv")
+    p.add_argument("--saida", default="estado/refazer_download.txt")
     p.add_argument("--todos", action="store_true",
                    help="verifica tudo do manifesto, nao so o que falhou")
     p.add_argument("--so-tamanho", action="store_true",

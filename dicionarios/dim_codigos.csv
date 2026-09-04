@@ -1,180 +1,312 @@
-variavel,codigo,rotulo,confianca,observacao
-sexo,1,Masculino,alta,
-sexo,2,Feminino,alta,
-raca_cor,1,Indígena,alta,
-raca_cor,2,Branca,alta,
-raca_cor,4,Preta,alta,
-raca_cor,6,Amarela,alta,
-raca_cor,8,Parda,alta,
-raca_cor,9,Não identificado,alta,
-raca_cor,-1,Ignorado,alta,
-grau_instrucao,1,Analfabeto,alta,
-grau_instrucao,2,Até 5º ano incompleto do fundamental,alta,
-grau_instrucao,3,5º ano completo do fundamental,alta,
-grau_instrucao,4,6º ao 9º ano do fundamental,alta,
-grau_instrucao,5,Fundamental completo,alta,
-grau_instrucao,6,Médio incompleto,alta,
-grau_instrucao,7,Médio completo,alta,
-grau_instrucao,8,Superior incompleto,alta,
-grau_instrucao,9,Superior completo,alta,
-grau_instrucao,10,Mestrado,alta,
-grau_instrucao,11,Doutorado,alta,
-grau_instrucao,-1,Ignorado,alta,
-faixa_etaria,1,10 a 14 anos,alta,
-faixa_etaria,2,15 a 17 anos,alta,
-faixa_etaria,3,18 a 24 anos,alta,
-faixa_etaria,4,25 a 29 anos,alta,
-faixa_etaria,5,30 a 39 anos,alta,
-faixa_etaria,6,40 a 49 anos,alta,
-faixa_etaria,7,50 a 64 anos,alta,
-faixa_etaria,8,65 anos ou mais,alta,
-faixa_etaria,-1,Ignorado,alta,
-faixa_hora_contrat,1,Até 12 horas,alta,
-faixa_hora_contrat,2,13 a 15 horas,alta,
-faixa_hora_contrat,3,16 a 20 horas,alta,
-faixa_hora_contrat,4,21 a 30 horas,alta,
-faixa_hora_contrat,5,31 a 40 horas,alta,
-faixa_hora_contrat,6,41 a 44 horas,alta,
-faixa_hora_contrat,7,Acima de 44 horas,alta,
-faixa_hora_contrat,-1,Ignorado,alta,
-faixa_tempo_emprego,1,"Até 2,9 meses",alta,
-faixa_tempo_emprego,2,"3,0 a 5,9 meses",alta,
-faixa_tempo_emprego,3,"6,0 a 11,9 meses",alta,
-faixa_tempo_emprego,4,"12,0 a 23,9 meses",alta,
-faixa_tempo_emprego,5,"24,0 a 35,9 meses",alta,
-faixa_tempo_emprego,6,"36,0 a 59,9 meses",alta,
-faixa_tempo_emprego,7,"60,0 a 119,9 meses",alta,
-faixa_tempo_emprego,8,"120,0 meses ou mais",alta,
-faixa_tempo_emprego,-1,Ignorado,alta,
-faixa_remun_media_sm,0,"Até 0,50 SM",alta,
-faixa_remun_media_sm,1,"0,51 a 1,00 SM",alta,
-faixa_remun_media_sm,2,"1,01 a 1,50 SM",alta,
-faixa_remun_media_sm,3,"1,51 a 2,00 SM",alta,
-faixa_remun_media_sm,4,"2,01 a 3,00 SM",alta,
-faixa_remun_media_sm,5,"3,01 a 4,00 SM",alta,
-faixa_remun_media_sm,6,"4,01 a 5,00 SM",alta,
-faixa_remun_media_sm,7,"5,01 a 7,00 SM",alta,
-faixa_remun_media_sm,8,"7,01 a 10,00 SM",alta,
-faixa_remun_media_sm,9,"10,01 a 15,00 SM",alta,
-faixa_remun_media_sm,10,"15,01 a 20,00 SM",alta,
-faixa_remun_media_sm,11,"Mais de 20,00 SM",alta,
-faixa_remun_media_sm,99,Ignorado,alta,
-faixa_remun_media_sm,-1,Ignorado,alta,
-faixa_remun_dez_sm,0,"Até 0,50 SM",alta,
-faixa_remun_dez_sm,1,"0,51 a 1,00 SM",alta,
-faixa_remun_dez_sm,2,"1,01 a 1,50 SM",alta,
-faixa_remun_dez_sm,3,"1,51 a 2,00 SM",alta,
-faixa_remun_dez_sm,4,"2,01 a 3,00 SM",alta,
-faixa_remun_dez_sm,5,"3,01 a 4,00 SM",alta,
-faixa_remun_dez_sm,6,"4,01 a 5,00 SM",alta,
-faixa_remun_dez_sm,7,"5,01 a 7,00 SM",alta,
-faixa_remun_dez_sm,8,"7,01 a 10,00 SM",alta,
-faixa_remun_dez_sm,9,"10,01 a 15,00 SM",alta,
-faixa_remun_dez_sm,10,"15,01 a 20,00 SM",alta,
-faixa_remun_dez_sm,11,"Mais de 20,00 SM",alta,
-faixa_remun_dez_sm,99,Ignorado,alta,
-faixa_remun_dez_sm,-1,Ignorado,alta,
-tamanho_estab,1,Zero vínculo,alta,
-tamanho_estab,2,De 1 a 4 vínculos,alta,
-tamanho_estab,3,De 5 a 9,alta,
-tamanho_estab,4,De 10 a 19,alta,
-tamanho_estab,5,De 20 a 49,alta,
-tamanho_estab,6,De 50 a 99,alta,
-tamanho_estab,7,De 100 a 249,alta,
-tamanho_estab,8,De 250 a 499,alta,
-tamanho_estab,9,De 500 a 999,alta,
-tamanho_estab,10,1000 ou mais vínculos,alta,
-tamanho_estab,-1,Ignorado,alta,
-ibge_subsetor,1,Extrativa mineral,alta,
-ibge_subsetor,2,Indústria de produtos minerais não metálicos,alta,
-ibge_subsetor,3,Indústria metalúrgica,alta,
-ibge_subsetor,4,Indústria mecânica,alta,
-ibge_subsetor,5,Indústria do material elétrico e de comunicações,alta,
-ibge_subsetor,6,Indústria do material de transporte,alta,
-ibge_subsetor,7,Indústria da madeira e do mobiliário,alta,
-ibge_subsetor,8,"Indústria do papel, papelão, editorial e gráfica",alta,
-ibge_subsetor,9,"Indústria da borracha, fumo, couros e indústrias diversas",alta,
-ibge_subsetor,10,"Indústria química, de produtos farmacêuticos e perfumaria",alta,
-ibge_subsetor,11,"Indústria têxtil, do vestuário e artefatos de tecidos",alta,
-ibge_subsetor,12,Indústria de calçados,alta,
-ibge_subsetor,13,"Indústria de produtos alimentícios, bebidas e álcool etílico",alta,
-ibge_subsetor,14,Serviços industriais de utilidade pública,alta,
-ibge_subsetor,15,Construção civil,alta,
-ibge_subsetor,16,Comércio varejista,alta,
-ibge_subsetor,17,Comércio atacadista,alta,
-ibge_subsetor,18,"Instituições de crédito, seguros e capitalização",alta,
-ibge_subsetor,19,"Administração de imóveis, valores mobiliários e serviços técnicos",alta,
-ibge_subsetor,20,Transportes e comunicações,alta,
-ibge_subsetor,21,"Serviços de alojamento, alimentação, reparação e manutenção",alta,
-ibge_subsetor,22,"Serviços médicos, odontológicos e veterinários",alta,
-ibge_subsetor,23,Ensino,alta,
-ibge_subsetor,24,Administração pública direta e autárquica,alta,
-ibge_subsetor,25,"Agricultura, silvicultura, criação de animais e extrativismo vegetal",alta,
-ibge_subsetor,-1,Ignorado,alta,
-cbo_grande_grupo,0,"Forças armadas, policiais e bombeiros militares",alta,
-cbo_grande_grupo,1,"Membros superiores do poder público, dirigentes e gerentes",alta,
-cbo_grande_grupo,2,Profissionais das ciências e das artes,alta,
-cbo_grande_grupo,3,Técnicos de nível médio,alta,
-cbo_grande_grupo,4,Trabalhadores de serviços administrativos,alta,
-cbo_grande_grupo,5,"Trabalhadores dos serviços, vendedores do comércio",alta,
-cbo_grande_grupo,6,"Trabalhadores agropecuários, florestais e da pesca",alta,
-cbo_grande_grupo,7,Trabalhadores da produção de bens e serviços industriais,alta,
-cbo_grande_grupo,8,Trabalhadores da produção de bens e serviços industriais (contínuos),alta,
-cbo_grande_grupo,9,Trabalhadores de manutenção e reparação,alta,
-natureza_juridica_grupo,1,Administração pública,alta,
-natureza_juridica_grupo,2,Entidades empresariais,alta,
-natureza_juridica_grupo,3,Entidades sem fins lucrativos,alta,
-natureza_juridica_grupo,4,Pessoas físicas,alta,
-natureza_juridica_grupo,5,Organizações internacionais e outras instituições extraterritoriais,alta,
-ind_simples,0,Não optante pelo Simples,conferir,
-ind_simples,1,Optante pelo Simples,conferir,
-ind_simples,-1,Ignorado,conferir,
-tipo_vinculo,10,"CLT urbano, empregador PJ, prazo indeterminado",conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,15,"CLT urbano, empregador PF, prazo indeterminado",conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,20,"CLT rural, empregador PJ, prazo indeterminado",conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,25,"CLT rural, empregador PF, prazo indeterminado",conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,30,Estatutário,conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,31,Estatutário RGPS,conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,35,Estatutário não efetivo,conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,40,Avulso,conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,50,Temporário (Lei 6.019/74),conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,55,Aprendiz,conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,60,"CLT urbano, empregador PJ, prazo determinado",conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,65,"CLT urbano, empregador PF, prazo determinado",conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,70,"CLT rural, empregador PJ, prazo determinado",conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,75,"CLT rural, empregador PF, prazo determinado",conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,80,Diretor,conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,90,Contrato prazo determinado (Lei 9.601/98),conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,95,Contrato temporário (Lei 8.745/93),conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,96,Contrato prazo determinado - lei estadual,conferir,Conferir rótulos no layout oficial do MTE
-tipo_vinculo,97,Contrato prazo indeterminado - lei estadual,conferir,Conferir rótulos no layout oficial do MTE
-tipo_admissao,0,Não é admitido no ano,conferir,Conferir no layout oficial
-tipo_admissao,1,Primeiro emprego,conferir,Conferir no layout oficial
-tipo_admissao,2,Reemprego,conferir,Conferir no layout oficial
-tipo_admissao,3,Transferência com ônus,conferir,Conferir no layout oficial
-tipo_admissao,4,Transferência sem ônus,conferir,Conferir no layout oficial
-tipo_admissao,5,Reintegração,conferir,Conferir no layout oficial
-tipo_admissao,6,Recondução/reversão,conferir,Conferir no layout oficial
-tipo_admissao,-1,Ignorado,conferir,Conferir no layout oficial
-motivo_desligamento,0,Não desligado no ano,conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
-motivo_desligamento,10,Rescisão com justa causa por iniciativa do empregador,conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
-motivo_desligamento,11,Rescisão sem justa causa por iniciativa do empregador,conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
-motivo_desligamento,12,Término do contrato por prazo determinado,conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
-motivo_desligamento,20,Rescisão por iniciativa do empregado (com justa causa),conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
-motivo_desligamento,21,Rescisão por iniciativa do empregado (sem justa causa),conferir,Lista INCOMPLETA. Rode 'pdet_banco.py codigos' para ver os codigos observados e complete pelo layout oficial
-vinculo_ativo_3112,true,Ativo em 31/12,alta,
-vinculo_ativo_3112,false,Desligado durante o ano,alta,
-tipo_defic,0,Não deficiente,conferir,Conferir no layout oficial
-tipo_defic,1,Física,conferir,Conferir no layout oficial
-tipo_defic,2,Auditiva,conferir,Conferir no layout oficial
-tipo_defic,3,Visual,conferir,Conferir no layout oficial
-tipo_defic,4,Mental,conferir,Conferir no layout oficial
-tipo_defic,5,Múltipla,conferir,Conferir no layout oficial
-tipo_defic,6,Reabilitado,conferir,Conferir no layout oficial
-tipo_defic,-1,Ignorado,conferir,Conferir no layout oficial
-nacionalidade,10,Brasileiro,conferir,Lista INCOMPLETA: demais codigos sao estrangeiros por pais de origem
-nacionalidade,20,Naturalizado brasileiro,conferir,Lista INCOMPLETA: demais codigos sao estrangeiros por pais de origem
-ind_atividade_ano,0,Sem atividade no ano,conferir,
-ind_atividade_ano,1,Com atividade no ano,conferir,
-ind_rais_negativa,0,RAIS com vínculos,conferir,
-ind_rais_negativa,1,RAIS negativa,conferir,
+variavel,codigo,rotulo,ano_de,ano_ate,confianca,observacao
+causa_afastamento_1,-1,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_1,10,Acidente de trabalho tipico,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_1,20,Acidente de trabalho de trajeto,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_1,30,Doenca relacionada ao trabalho,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_1,40,Doenca nao relacionada ao trabalho,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_1,50,Licenca-maternidade,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_1,60,Servico militar,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_1,70,Licenca sem vencimento,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_1,99,Sem afastamentos,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+causa_afastamento_2,-1,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_2,10,Acidente de trabalho tipico,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_2,20,Acidente de trabalho de trajeto,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_2,30,Doenca relacionada ao trabalho,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_2,40,Doenca nao relacionada ao trabalho,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_2,50,Licenca-maternidade,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_2,60,Servico militar,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_2,70,Licenca sem vencimento,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_2,99,Sem afastamentos,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_3,-1,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_3,10,Acidente de trabalho tipico,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_3,20,Acidente de trabalho de trajeto,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_3,30,Doenca relacionada ao trabalho,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_3,40,Doenca nao relacionada ao trabalho,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_3,50,Licenca-maternidade,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_3,60,Servico militar,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_3,70,Licenca sem vencimento,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+causa_afastamento_3,99,Sem afastamentos,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2017.xls, aba RAISD - layout); o layout de 2020 deixou de listar estes codigos, so o de 2017 os traz"
+cbo_grande_grupo,0,"Forças armadas, policiais e bombeiros militares",0,9999,alta,
+cbo_grande_grupo,1,"Membros superiores do poder público, dirigentes e gerentes",0,9999,alta,
+cbo_grande_grupo,2,Profissionais das ciências e das artes,0,9999,alta,
+cbo_grande_grupo,3,Técnicos de nível médio,0,9999,alta,
+cbo_grande_grupo,4,Trabalhadores de serviços administrativos,0,9999,alta,
+cbo_grande_grupo,5,"Trabalhadores dos serviços, vendedores do comércio",0,9999,alta,
+cbo_grande_grupo,6,"Trabalhadores agropecuários, florestais e da pesca",0,9999,alta,
+cbo_grande_grupo,7,Trabalhadores da produção de bens e serviços industriais,0,9999,alta,
+cbo_grande_grupo,8,Trabalhadores da produção de bens e serviços industriais (contínuos),0,9999,alta,
+cbo_grande_grupo,9,Trabalhadores de manutenção e reparação,0,9999,alta,
+faixa_etaria,-1,Ignorado,0,9999,alta,
+faixa_etaria,1,10 a 14 anos,0,9999,alta,
+faixa_etaria,2,15 a 17 anos,0,9999,alta,
+faixa_etaria,3,18 a 24 anos,0,9999,alta,
+faixa_etaria,4,25 a 29 anos,0,9999,alta,
+faixa_etaria,5,30 a 39 anos,0,9999,alta,
+faixa_etaria,6,40 a 49 anos,0,9999,alta,
+faixa_etaria,7,50 a 64 anos,0,9999,alta,
+faixa_etaria,8,65 anos ou mais,0,9999,alta,
+faixa_etaria,99,Não classificado,0,9999,alta,"layout oficial MTE, aba FAIXAS: a ultima faixa de cada variavel e '{n class}', e a nota do layout manda tratar '{n class}' como ignorado; nos arquivos esse marcador vem escrito 99"
+faixa_hora_contrat,-1,Ignorado,0,9999,alta,
+faixa_hora_contrat,1,Até 12 horas,0,9999,alta,
+faixa_hora_contrat,2,13 a 15 horas,0,9999,alta,
+faixa_hora_contrat,3,16 a 20 horas,0,9999,alta,
+faixa_hora_contrat,4,21 a 30 horas,0,9999,alta,
+faixa_hora_contrat,5,31 a 40 horas,0,9999,alta,
+faixa_hora_contrat,6,41 a 44 horas,0,9999,alta,
+faixa_hora_contrat,7,Acima de 44 horas,0,9999,alta,
+faixa_hora_contrat,99,Não classificado,0,9999,alta,"layout oficial MTE, aba FAIXAS: a ultima faixa de cada variavel e '{n class}', e a nota do layout manda tratar '{n class}' como ignorado; nos arquivos esse marcador vem escrito 99"
+faixa_remun_dez_sm,0,Nao ativo em dezembro,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,1,"Até 0,50 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,2,"0,51 a 1,00 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,3,"1,01 a 1,50 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,4,"1,51 a 2,00 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,5,"2,01 a 3,00 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,6,"3,01 a 4,00 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,7,"4,01 a 5,00 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,8,"5,01 a 7,00 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,9,"7,01 a 10,00 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,10,"10,01 a 15,00 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,11,"15,01 a 20,00 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,12,"Mais de 20,00 SM",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_dez_sm,99,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,0,"Até 0,50 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,1,"0,51 a 1,00 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,2,"1,01 a 1,50 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,3,"1,51 a 2,00 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,4,"2,01 a 3,00 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,5,"3,01 a 4,00 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,6,"4,01 a 5,00 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,7,"5,01 a 7,00 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,8,"7,01 a 10,00 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,9,"10,01 a 15,00 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,10,"15,01 a 20,00 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,11,"Mais de 20,00 SM",0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,99,Ignorado,0,2022,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba FAIXAS); conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,1,"Até 0,50 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,2,"0,51 a 1,00 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,3,"1,01 a 1,50 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,4,"1,51 a 2,00 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,5,"2,01 a 3,00 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,6,"3,01 a 4,00 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,7,"4,01 a 5,00 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,8,"5,01 a 7,00 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,9,"7,01 a 10,00 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,10,"10,01 a 15,00 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,11,"15,01 a 20,00 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_remun_media_sm,12,"Mais de 20,00 SM",2023,9999,alta,"a escala mudou em 2023: passou a comecar em 1, como a de dezembro; conferido contra os dados: limites das faixas batem nos multiplos exatos do salario minimo"
+faixa_tempo_emprego,-1,Ignorado,0,9999,alta,
+faixa_tempo_emprego,1,"Até 2,9 meses",0,9999,alta,
+faixa_tempo_emprego,2,"3,0 a 5,9 meses",0,9999,alta,
+faixa_tempo_emprego,3,"6,0 a 11,9 meses",0,9999,alta,
+faixa_tempo_emprego,4,"12,0 a 23,9 meses",0,9999,alta,
+faixa_tempo_emprego,5,"24,0 a 35,9 meses",0,9999,alta,
+faixa_tempo_emprego,6,"36,0 a 59,9 meses",0,9999,alta,
+faixa_tempo_emprego,7,"60,0 a 119,9 meses",0,9999,alta,
+faixa_tempo_emprego,8,"120,0 meses ou mais",0,9999,alta,
+faixa_tempo_emprego,99,Não classificado,0,9999,alta,"layout oficial MTE, aba FAIXAS: a ultima faixa de cada variavel e '{n class}', e a nota do layout manda tratar '{n class}' como ignorado; nos arquivos esse marcador vem escrito 99"
+grau_instrucao,-1,Ignorado,0,9999,alta,
+grau_instrucao,1,Analfabeto,0,9999,alta,
+grau_instrucao,2,Até 5º ano incompleto do fundamental,0,9999,alta,
+grau_instrucao,3,5º ano completo do fundamental,0,9999,alta,
+grau_instrucao,4,6º ao 9º ano do fundamental,0,9999,alta,
+grau_instrucao,5,Fundamental completo,0,9999,alta,
+grau_instrucao,6,Médio incompleto,0,9999,alta,
+grau_instrucao,7,Médio completo,0,9999,alta,
+grau_instrucao,8,Superior incompleto,0,9999,alta,
+grau_instrucao,9,Superior completo,0,9999,alta,
+grau_instrucao,10,Mestrado,0,9999,alta,
+grau_instrucao,11,Doutorado,0,9999,alta,
+ibge_subsetor,-1,Ignorado,0,9999,alta,
+ibge_subsetor,1,Extrativa mineral,0,9999,alta,
+ibge_subsetor,2,Indústria de produtos minerais não metálicos,0,9999,alta,
+ibge_subsetor,3,Indústria metalúrgica,0,9999,alta,
+ibge_subsetor,4,Indústria mecânica,0,9999,alta,
+ibge_subsetor,5,Indústria do material elétrico e de comunicações,0,9999,alta,
+ibge_subsetor,6,Indústria do material de transporte,0,9999,alta,
+ibge_subsetor,7,Indústria da madeira e do mobiliário,0,9999,alta,
+ibge_subsetor,8,"Indústria do papel, papelão, editorial e gráfica",0,9999,alta,
+ibge_subsetor,9,"Indústria da borracha, fumo, couros e indústrias diversas",0,9999,alta,
+ibge_subsetor,10,"Indústria química, de produtos farmacêuticos e perfumaria",0,9999,alta,
+ibge_subsetor,11,"Indústria têxtil, do vestuário e artefatos de tecidos",0,9999,alta,
+ibge_subsetor,12,Indústria de calçados,0,9999,alta,
+ibge_subsetor,13,"Indústria de produtos alimentícios, bebidas e álcool etílico",0,9999,alta,
+ibge_subsetor,14,Serviços industriais de utilidade pública,0,9999,alta,
+ibge_subsetor,15,Construção civil,0,9999,alta,
+ibge_subsetor,16,Comércio varejista,0,9999,alta,
+ibge_subsetor,17,Comércio atacadista,0,9999,alta,
+ibge_subsetor,18,"Instituições de crédito, seguros e capitalização",0,9999,alta,
+ibge_subsetor,19,"Administração de imóveis, valores mobiliários e serviços técnicos",0,9999,alta,
+ibge_subsetor,20,Transportes e comunicações,0,9999,alta,
+ibge_subsetor,21,"Serviços de alojamento, alimentação, reparação e manutenção",0,9999,alta,
+ibge_subsetor,22,"Serviços médicos, odontológicos e veterinários",0,9999,alta,
+ibge_subsetor,23,Ensino,0,9999,alta,
+ibge_subsetor,24,Administração pública direta e autárquica,0,9999,alta,
+ibge_subsetor,25,"Agricultura, silvicultura, criação de animais e extrativismo vegetal",0,9999,alta,
+ibge_subsetor,99,Não classificado,0,9999,alta,"layout oficial MTE, aba FAIXAS: a ultima faixa de cada variavel e '{n class}', e a nota do layout manda tratar '{n class}' como ignorado; nos arquivos esse marcador vem escrito 99"
+ind_atividade_ano,0,Sem atividade no ano,0,9999,alta,"layout oficial MTE (RAIS_estabelecimento_layout2018e2019.xls, aba ESTB - layout)"
+ind_atividade_ano,1,Com atividade no ano,0,9999,alta,"layout oficial MTE (RAIS_estabelecimento_layout2018e2019.xls, aba ESTB - layout)"
+ind_portador_defic,0,Não,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+ind_portador_defic,1,Sim,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+ind_rais_negativa,0,RAIS com vínculos,0,9999,alta,"layout oficial MTE (RAIS_estabelecimento_layout2018e2019.xls, aba ESTB - layout)"
+ind_rais_negativa,1,RAIS negativa,0,9999,alta,"layout oficial MTE (RAIS_estabelecimento_layout2018e2019.xls, aba ESTB - layout)"
+ind_simples,-1,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+ind_simples,0,Não optante pelo Simples,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+ind_simples,1,Optante pelo Simples,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+ind_trab_intermitente,0,Não,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+ind_trab_intermitente,1,Sim,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+ind_trab_parcial,0,Não,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+ind_trab_parcial,1,Sim,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+ind_vinculo_abandonado,0,Não,2023,9999,conferir,"segue a convencao dos demais ind_* (0=Nao, 1=Sim); o MTE nao publicou layout de 2023 em diante"
+ind_vinculo_abandonado,1,Sim,2023,9999,conferir,"segue a convencao dos demais ind_* (0=Nao, 1=Sim); o MTE nao publicou layout de 2023 em diante"
+motivo_desligamento,-1,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,0,Não desligado no ano,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,10,Rescisão com justa causa por iniciativa do empregador,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,11,Rescisão sem justa causa por iniciativa do empregador,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,12,Término do contrato por prazo determinado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,20,Rescisão com justa causa por iniciativa do empregado (rescisão indireta),0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,21,Rescisão sem justa causa por iniciativa do empregado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,22,Posse em outro cargo inacumulável,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,30,Transferência com ônus,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,31,Transferência sem ônus,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,32,Readaptação / redistribuição,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,33,Cessão,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,34,Redistribuição,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,40,Mudança de regime,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,50,Reforma,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,60,Falecimento,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,62,Falecimento por acidente de trabalho,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,63,Falecimento por acidente de trabalho de trajeto,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,64,Falecimento por doença profissional,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,70,"Aposentadoria por tempo de serviço, com rescisão",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,71,"Aposentadoria por tempo de serviço, sem rescisão",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,72,"Aposentadoria por idade, com rescisão",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,73,"Aposentadoria por invalidez, por acidente de trabalho",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,74,"Aposentadoria por invalidez, por doença profissional",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,75,Aposentadoria compulsória,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,76,"Aposentadoria por invalidez, outros motivos",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,78,"Aposentadoria por idade, sem rescisão",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,79,"Aposentadoria especial, com rescisão",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,80,"Aposentadoria especial, sem rescisão",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+motivo_desligamento,90,Desligamento por acordo (Lei 13.467/2017),0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,-1,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,10,Brasileira,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,20,Naturalizada brasileira,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,21,Argentina,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,22,Boliviana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,23,Chilena,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,24,Paraguaia,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,25,Uruguaia,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,26,Venezuelana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,27,Colombiana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,28,Peruana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,29,Equatoriana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,30,Alemã,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,31,Belga,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,32,Britânica,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,34,Canadense,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,35,Espanhola,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,36,Norte-americana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,37,Francesa,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,38,Suíça,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,39,Italiana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,40,Haitiana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,41,Japonesa,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,42,Chinesa,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,43,Coreana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,44,Russa,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,45,Portuguesa,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,46,Paquistanesa,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,47,Indiana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,48,Outras latino-americanas,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,49,Outras asiáticas,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,50,Outras nacionalidades,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,51,Outros europeus,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,52,Guineense (Guiné-Bissau),0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,53,Marroquina,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,54,Cubana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,55,Síria,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,56,Sul-coreana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,59,Bengalesa,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,60,Angolana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,61,Congolesa,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,62,Sul-africana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,63,Ganesa,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,64,Senegalesa,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,65,Norte-coreana,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,70,Outros africanos,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+nacionalidade,80,Outros,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+natureza_juridica_grupo,1,Administração pública,0,9999,alta,
+natureza_juridica_grupo,2,Entidades empresariais,0,9999,alta,
+natureza_juridica_grupo,3,Entidades sem fins lucrativos,0,9999,alta,
+natureza_juridica_grupo,4,Pessoas físicas,0,9999,alta,
+natureza_juridica_grupo,5,Organizações internacionais e outras instituições extraterritoriais,0,9999,alta,
+raca_cor,-1,Ignorado,0,9999,alta,
+raca_cor,1,Indígena,0,9999,alta,
+raca_cor,2,Branca,0,9999,alta,
+raca_cor,4,Preta,0,9999,alta,
+raca_cor,6,Amarela,0,9999,alta,
+raca_cor,8,Parda,0,9999,alta,
+raca_cor,9,Não identificado,0,9999,alta,
+raca_cor,99,Não classificado,0,9999,alta,"o layout traz -1 = IGNORADO, mas os arquivos carregam 99 nesta posicao (130 milhoes de linhas, 2010-2022); mesmo marcador '{n class}' das faixas"
+sexo,1,Masculino,0,9999,alta,
+sexo,2,Feminino,0,9999,alta,
+tamanho_estab,-1,Ignorado,0,9999,alta,
+tamanho_estab,1,Zero vínculo,0,9999,alta,
+tamanho_estab,2,De 1 a 4 vínculos,0,9999,alta,
+tamanho_estab,3,De 5 a 9,0,9999,alta,
+tamanho_estab,4,De 10 a 19,0,9999,alta,
+tamanho_estab,5,De 20 a 49,0,9999,alta,
+tamanho_estab,6,De 50 a 99,0,9999,alta,
+tamanho_estab,7,De 100 a 249,0,9999,alta,
+tamanho_estab,8,De 250 a 499,0,9999,alta,
+tamanho_estab,9,De 500 a 999,0,9999,alta,
+tamanho_estab,10,1000 ou mais vínculos,0,9999,alta,
+tipo_admissao,-1,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,0,Não admitido no ano,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,1,Primeiro emprego,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,2,Reemprego,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,3,Transferência com ônus,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,4,Transferência sem ônus,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,6,Reintegração,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,7,Recondução,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,8,Reversão,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,9,Requisição,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,10,Exercício provisório ou descentralizado de servidor de outro órgão,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,11,Readaptação (servidor público),0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,12,Redistribuição (servidor público),0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,13,Exercício descentralizado de servidor de outro órgão,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_admissao,14,Remoção (servidor público),0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_defic,-1,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_defic,0,Não deficiente,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_defic,1,Física,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_defic,2,Auditiva,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_defic,3,Visual,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_defic,4,Mental,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_defic,5,Múltipla,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_defic,6,Reabilitado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_estab,-1,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_estab,1,CNPJ,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_estab,3,CEI,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_estab,9,Não identificado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,-1,Ignorado,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,10,"CLT urbano, empregador PJ, prazo indeterminado",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,15,"CLT urbano, empregador PF, prazo indeterminado",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,20,"CLT rural, empregador PJ, prazo indeterminado",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,25,"CLT rural, empregador PF, prazo indeterminado",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,30,Estatutário,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,31,Estatutário RGPS,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,35,Estatutário não efetivo,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,40,Avulso,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,50,Temporário (Lei 6.019/74),0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,55,Aprendiz,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,60,"CLT urbano, empregador PJ, prazo determinado",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,65,"CLT urbano, empregador PF, prazo determinado",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,70,"CLT rural, empregador PJ, prazo determinado",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,75,"CLT rural, empregador PF, prazo determinado",0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,80,Diretor,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,90,Contrato por prazo determinado (Lei 9.601/98),0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,95,Contrato temporário (Lei 8.745/93),0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,96,Contrato por lei estadual,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+tipo_vinculo,97,Contrato por lei municipal,0,9999,alta,"layout oficial MTE (RAIS_vinculos_layout2020.xls, aba RAISD - layout)"
+vinculo_ativo_3112,true,Ativo em 31/12,0,9999,alta,
+vinculo_ativo_3112,false,Desligado durante o ano,0,9999,alta,

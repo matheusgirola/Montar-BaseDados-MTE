@@ -1,76 +1,106 @@
-# Ponto de retomada — 2026-08-31, 22:50
+# Ponto de retomada — 2026-09-03
 
-Sessão encerrada a pedido, no meio da fila. **Nada foi perdido**: os dois
-estágios são retomáveis por checkpoint.
+Estado da sessão mais recente. **Este arquivo é descartável** — lições,
+bugs e achados de dado moram no `CLAUDE.md`; aqui fica só "onde paramos" e
+"o que fazer a seguir". Reescreva-o na próxima retomada em vez de acumular
+histórico.
 
 ## Estado
 
 | | |
 |---|---|
-| `manifesto.csv` (download) | 48 arquivos, todos `ok` |
-| `conversao.csv` (Parquet) | 25 unidades, todas `ok` — **214.086.784 linhas** |
-| Parquet principal | `/Volumes/HD E. 500GB/pdet/10_parquet` |
-| Banco DuckDB | `/Users/matheusgirola/pdet_tmp/pdet.duckdb` |
-| Disco local livre | 49 GB / HD externo | 438 GB |
+| Parquet principal | `E:\pdet\10_parquet` — vínculos e estabelecimentos, **2010-2025, todas as UFs**, 875 arquivos, 44,7 GB |
+| Vínculos | **1.178.045.148 linhas** |
+| `E:\pdet\03_meta\conversao.csv` | **284 unidades, todas `ok`** |
+| Parquet do Legado | `E:\pdet\10_parquet_legado` — 2023 inteiro, 2019 só Centro-Oeste |
+| Banco | `C:\pdet\pdet.duckdb` (principal) e `C:\pdet\pdet_legado.duckdb` |
+| Checagens | **14 de 14 rodaram**, nenhuma pulada |
+| Cubos | **materializados** — 7 cubos, 2010-2025, rollup fecha em zero |
+| Disco livre | C: 49 GB / E: 750 GB |
 
-Cobertura convertida: RAIS_VINCULOS Nordeste 2018-2025, PI 2013-2017,
-Brasil 2025, mais as 6 anomalias (AC/AP 2014, MT 2011, RS 2012, SP 2015,
-CE 2016).
+**A fase 3 está inteira.** `criar`, `checar`, `codigos`, `agregar` e
+`consulta` todos rodados sobre a base nacional. Não há passo de construção
+pendente — ver `CLAUDE.md` seção 4 para o detalhe de cada achado (§4.1 a
+§4.8) e seção 6 para as divergências já fechadas.
 
-## Falta baixar: 1 arquivo
+## O que fazer em seguida, nesta ordem
 
-```
-/pdet/microdados/RAIS/2023/Legado/RAIS_VINC_PUB_SUL.7z   (618 MB)
-```
+**1. Usar o banco.** As 21 consultas nomeadas de `sql/consultas.sql` rodam
+sobre os cubos, em frações de segundo:
 
-Já existe um `.part` com ~300 MB baixados. **Não apagar** — o download
-retoma por FTP REST de onde parou.
-
-```bash
-./pdet.sh baixar --base RAIS_VINCULOS --ano 2023 --incluir-legado
-```
-
-## Bônus não planejado
-
-O comando do Legado usou `--ano 2019 --ano 2023`, que também trouxe as
-**definitivas** de 2019 e 2023 para todas as regiões (antes só havia
-Nordeste). Ou seja: dá para comparar 2019 e 2023 **Brasil inteiro** contra
-os números oficiais usando a versão definitiva, além do Legado.
-
-## Retomar
-
-Os dois scripts estão prontos e são idempotentes — podem ser rodados de
-novo do começo, que pulam o que já foi feito:
-
-```bash
-/Users/matheusgirola/pdet_tmp/sequencia.sh   # Legado -> arvore separada -> compara com oficial
-/Users/matheusgirola/pdet_tmp/vizinhos.sh    # anos vizinhos das anomalias -> series
+```powershell
+uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb consulta --nome estoque_brasil
 ```
 
-O `vizinhos.sh` espera o `sequencia.sh` sair. Há também
-`/Users/matheusgirola/pdet_tmp/watchdog.sh`, que mata o pipeline se o HD
-sumir por 120 s.
+**2. Completar os 40 códigos que faltam.** Listados em
+`C:\pdet\log\codigos_observados.csv`. Quase todos são de 2023 em diante —
+o MTE não publicou layout novo. Maior buraco: `categoria_trabalhador` (22
+códigos, 262 milhões de linhas). Se aparecer layout novo, procedimento em
+`CLAUDE.md` seção 5.
 
-**Importante:** o Legado tem de ir para `10_parquet_legado`, com
-`--manifesto .../03_meta/conversao_legado.csv`. Convertê-lo na árvore
-principal criaria duas origens para as partições 2019 e 2023 — exatamente a
-duplicação que a checagem 2 detecta. Os scripts já fazem isso certo.
+**3. Se a pasta `Legado` de 2019 for necessária, peça os arquivos ao MTE.**
+Os do FTP estão corrompidos na origem (`CLAUDE.md` §4.3) e rebaixar não
+resolve.
 
-## As duas perguntas em aberto
+**Para refazer os cubos**, se algum dia precisar — `--ano X` apaga e
+reescreve só aquele ano, o resto fica intacto:
 
-**1. As versões explicam 2019 e 2023?** Hipótese: o FTP serve hoje uma
-vintage revisada, diferente da usada nas publicações oficiais. Teste: o
-Legado convertido deve bater **47.554.211** (2019) e **54.706.385** (2023).
-Doze outros anos já batem dígito por dígito com o oficial.
+```powershell
+powershell -File C:\pdet\agregar_lento.ps1 2019 2020 2021
+```
 
-**2. As "quedas verticais" são reais?** Já convertidas as unidades de MT
-2011, RS 2012, SP 2015 e CE 2016, mas **falta baixar os anos vizinhos** —
-sem eles não há com o que comparar. É o que o `vizinhos.sh` faz (1,6 GB).
+Detalhe do porquê 2023+ usa memória diferente em `CLAUDE.md` §4.7.
 
-**Já respondida:** a anomalia "AC e AP idênticos em 2014" **não existe** —
-AC 191.604 vs AP 184.811, e os `.7z` têm tamanhos diferentes.
+## Como rodar
 
-## Nota de rede
+Runbook completo em `docs/COMO-RODAR-BANCO.txt`. A única armadilha
+específica desta máquina: `--meta` precisa de uma pasta só, e o
+`conversao.csv` bom mora em `E:\pdet\03_meta`, não no repositório.
+`C:\pdet\meta` já está montada certa — não aponte `--meta` para a raiz
+do projeto.
 
-A velocidade caiu de 1,6 MB/s (18h) para 0,88 MB/s (22h45). Se estiver
-lento de novo, é o servidor do MTE, não a máquina.
+## Energia — comandos rápidos
+
+Histórico completo dos dois incidentes em `CLAUDE.md` §4.6. Aqui só os
+comandos que precisam ser refeitos **a cada logon**, porque a política
+corporativa reseta tudo:
+
+```powershell
+powercfg /change standby-timeout-ac 0
+powercfg /change hibernate-timeout-ac 0
+powercfg /change disk-timeout-ac 0
+powercfg /setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 `
+    48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0
+powercfg /setactive SCHEME_CURRENT
+```
+
+E o vigia, antes de qualquer etapa longa no HD externo:
+
+```powershell
+Start-Process powershell -ArgumentList '-NoProfile','-WindowStyle','Hidden', `
+    '-ExecutionPolicy','Bypass','-File','C:\pdet\watchdog.ps1' -WindowStyle Hidden
+```
+
+Para conferir se está rodando, **exclua o próprio `$PID`** — senão o
+comando se conta a si mesmo e diz "1 vigia" com zero rodando:
+
+```powershell
+$meu = $PID
+Get-CimInstance Win32_Process -Filter "Name='powershell.exe'" |
+    Where-Object { $_.ProcessId -ne $meu -and $_.CommandLine -like '*watchdog.ps1*' }
+```
+
+Para qualquer rodada longa (conversão ou `agregar`), use os scripts que já
+aplicam o consumo reduzido — não chame `pdet_parquet.py`/`pdet_banco.py`
+direto no HD externo:
+
+- `C:\pdet\resume_vinc.ps1` — conversão, uma unidade por invocação
+- `C:\pdet\agregar_lento.ps1` — cubos, um ano por invocação
+
+## Backups
+
+Convenção: antes de editar `pdet_parquet.py`, `pdet_banco.py`,
+`dicionarios/dic_rais.csv`, `dicionarios/dim_codigos.csv`, `CLAUDE.md` ou
+`RETOMAR.md`, copie para `C:\pdet\<nome>.bak`
+(sufixo numerado se já houver um `.bak`). Os backups ficam só em `C:\pdet`,
+fora do repositório — não commitar.

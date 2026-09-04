@@ -1,6 +1,11 @@
 FASE 3 -- O BANCO ANALITICO
 ===========================
 
+Este e o runbook operacional: so comandos e caminhos. Todo bug corrigido,
+achado sobre os dados e o "porque" de cada regra abaixo estao em
+CLAUDE.md -- consulte antes de mudar qualquer coisa aqui. O estado da
+sessao mais recente esta em RETOMAR.md.
+
 O Parquet no HD externo continua sendo a fonte da verdade. O arquivo
 pdet.duckdb fica no disco INTERNO e guarda apenas views, dimensoes e
 agregados. Pode ser apagado e refeito a qualquer momento.
@@ -10,9 +15,14 @@ Onde cada coisa vai:
     E:\pdet\10_parquet     Parquet (fonte da verdade, HD externo)
     C:\pdet\pdet.duckdb    banco (disco interno, fora do OneDrive)
     C:\pdet\tmp            spill do DuckDB (disco interno)
-    .\                     os 5 dim_*.csv de apoio deste pacote
-    E:\pdet\               conversao.csv e manifesto.csv, gravados
+    .\dicionarios          os 5 dim_*.csv de apoio deste pacote
+    E:\pdet\03_meta       conversao.csv e manifesto.csv, gravados
                            la pelo pdet_parquet / pdet_download
+    C:\pdet\meta          os 5 CSVs de proveniencia reunidos numa
+                           pasta so, que e o que --meta espera
+    E:\pdet\10_parquet_legado
+                           Parquet das pastas 'Legado' -- arvore SEPARADA
+                           de proposito, ver PASSO 1
 
 
 PASSO 1 -- CRIAR AS VIEWS E AS DIMENSOES  (segundos)
@@ -21,26 +31,46 @@ PASSO 1 -- CRIAR AS VIEWS E AS DIMENSOES  (segundos)
     uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
         --tmp C:\pdet\tmp `
         criar --parquet E:\pdet\10_parquet `
-              --dicionarios . `
-              --meta E:\pdet
+              --meta C:\pdet\meta
 
-ATENCAO aos dois caminhos acima -- errar um deles nao quebra nada na
-hora, mas mata checagens depois:
+ATENCAO ao caminho abaixo -- errar ele nao quebra nada na hora, mas mata
+checagens depois:
 
   --dicionarios  pasta com os cinco dim_*.csv (dim_municipio,
                  dim_cnae_classe, dim_cnae_subclasse, dim_codigos,
-                 dim_ano). Neste pacote eles estao na RAIZ do projeto,
-                 nao em .\dicionarios. Sem eles, as checagens 6, 7, 8
-                 e 11 nao rodam.
+                 dim_ano). Default 'dicionarios', que e onde eles moram
+                 neste pacote -- normalmente nao precisa passar a flag.
+                 Sem eles, as checagens 6, 7, 8 e 11 nao rodam.
 
   --meta         pasta com conversao.csv, manifesto.csv, dic_rais.csv,
-                 inventario_ftp.csv e cabecalhos.csv. Os tres ultimos
-                 estao no projeto; conversao.csv e manifesto.csv sao
-                 gravados pelo pdet_parquet.py / pdet_download.py na
-                 raiz de DADOS (E:\pdet). Sem conversao.csv a checagem
-                 'conferencia_com_manifesto' nao roda -- e ela e a que
-                 compara linha a linha o Parquet com o que a conversao
-                 diz ter escrito.
+                 inventario_ftp.csv e cabecalhos.csv.
+
+                 ATENCAO: eles moram em DOIS lugares, e o 'criar' aceita
+                 UMA pasta so -- ele escolhe a que tiver MAIS dos cinco.
+                 dic_rais.csv (em dicionarios\), inventario_ftp.csv e
+                 cabecalhos.csv (em estado\) estao no repositorio;
+                 conversao.csv e manifesto.csv sao gravados pelo pipeline
+                 em E:\pdet\03_meta.
+
+                 O problema: a raiz do repositorio TAMBEM tem um
+                 conversao.csv, e ele e a fotografia antiga, com 485
+                 linhas e 198 erros do bug de classificacao por caminho.
+                 Apontar --meta para la carrega o CSV errado sem avisar, e
+                 a checagem 'conferencia_com_manifesto' passa a comparar o
+                 Parquet com um manifesto que nao corresponde a ele.
+
+                 A saida e montar uma pasta so. C:\pdet\meta ja esta
+                 montada assim:
+
+                     copy E:\pdet\03_meta\conversao.csv       C:\pdet\meta\
+                     copy .\manifesto.csv                     C:\pdet\meta\
+                     copy .\dicionarios\dic_rais.csv          C:\pdet\meta\
+                     copy .\estado\inventario_ftp.csv         C:\pdet\meta\
+                     copy .\estado\cabecalhos.csv             C:\pdet\meta\
+
+                 Sem conversao.csv a checagem 'conferencia_com_manifesto'
+                 nao roda -- e ela e a que compara linha a linha o Parquet
+                 com o que a conversao diz ter escrito.
 
 Se o 'criar' nao achar algum desses CSVs na pasta pedida, ele procura na
 pasta do script e no diretorio atual antes de desistir, e no fim aborta
@@ -60,7 +90,7 @@ PASSO 2 -- CHECAR ANTES DE AGREGAR  (minutos)
     uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
         --tmp C:\pdet\tmp checar --mostrar
 
-Gera checagem_banco.md. NAO pule este passo: agregar em cima de dado
+Gera estado\checagem_banco.md. NAO pule este passo: agregar em cima de dado
 duplicado produz relatorio errado que parece certo.
 
 Leia primeiro o bloco "## Resumo" no topo do relatorio. Ele diz quantas
@@ -89,31 +119,53 @@ PASSO 3 -- COMPLETAR OS ROTULOS  (opcional, uma vez)
         --tmp C:\pdet\tmp codigos
 
 Lista todo codigo que aparece na base e diz quais nao tem rotulo em
-dim_codigos.csv. Complete o CSV pelo layout oficial do MTE e
+dicionarios\dim_codigos.csv. Complete o CSV pelo layout oficial do MTE e
 rode o PASSO 1 de novo.
 
 Atencao: em dim_codigos.csv a coluna 'confianca' vale 'alta' ou
 'conferir'. O que esta como 'conferir' foi preenchido de memoria e
-precisa bater com o layout antes de sair em relatorio.
+precisa bater com o layout antes de sair em relatorio. Em 02/09/2026 os
+rotulos foram conferidos contra os layouts oficiais do MTE, que estao
+baixados em E:\pdet\00_raw\pdet\microdados\RAIS\Layouts -- das 311
+linhas, 309 sao 'alta', com a fonte anotada na coluna 'observacao'.
+
+O arquivo tem duas colunas a mais, ano_de e ano_ate, e elas nao sao
+enfeite: ha codigo que muda de significado no meio da serie.
+'faixa_remun_media_sm' vale 0..11 ate 2022 e 1..12 de 2023 em diante, ou
+seja, o codigo 2 quer dizer "1,01 a 1,50 SM" de um lado e "0,51 a 1,00 SM"
+do outro. Quem for juntar rotulo a codigo em consulta propria precisa
+casar tambem pela janela de anos, como o 'codigos' faz.
+
+Guarde TODOS os layouts, nao so o mais novo: o de 2020 deixou de listar as
+causas de afastamento, que so o de 2017 traz.
 
 
-PASSO 4 -- MATERIALIZAR OS CUBOS  (horas, na primeira vez)
-----------------------------------------------------------
+PASSO 4 -- MATERIALIZAR OS CUBOS  (~48 min, medido sobre a base inteira)
+--------------------------------------------------------------------------
 
-    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
-        --tmp C:\pdet\tmp agregar --uf-detalhe PI
+NAO chame 'agregar' direto no HD externo, nem na primeira vez -- 4
+varreduras de 1,18 bilhao de linhas sem pausa e exatamente o perfil de
+carga que ja derrubou o disco (motivo completo em CLAUDE.md #4.6). Use o
+script devagar, que roda um ano por invocacao:
 
-Sao 4 varreduras dos vinculos. Com 5 bilhoes de linhas no USB, conte
-algumas horas. Da para deixar rodando e conferir depois -- se cair, e so
-rodar de novo (cada tabela e refeita inteira).
+    powershell -File C:\pdet\agregar_lento.ps1
 
-No ano seguinte, quando so o ano novo entrar:
+Usa 4 threads / 4 GB ate 2022 e 2 threads / 6 GB de 2023 em diante -- de
+2023 o cubo municipal estoura 4 GB por causa do approx_quantile, que o
+DuckDB nao derrama para disco (o script troca sozinho; detalhe em
+CLAUDE.md #4.7). Contraintuitivo mas medido: com mais memoria os anos de
+2023-2025 ficaram MAIS rapidos, nao mais lentos.
 
-    uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
-        --tmp C:\pdet\tmp agregar --ano 2026 --uf-detalhe PI
+Se parar no meio, o log diz quais anos terminaram
+(C:\pdet\log\agregar_lento.log). Retome so pelos que faltam:
 
-Com --ano, as linhas daquele ano sao apagadas e reinseridas; o resto da
-serie fica intacto. E este o caminho da atualizacao anual.
+    powershell -File C:\pdet\agregar_lento.ps1 2019 2020 2021
+
+--ano apaga e reescreve so as linhas daquele ano; o resto da serie fica
+intacto. E este tambem o caminho da atualizacao anual, quando so o ano
+novo entrar:
+
+    powershell -File C:\pdet\agregar_lento.ps1 2026
 
 
 PASSO 5 -- CONSULTAR
@@ -128,7 +180,7 @@ PASSO 5 -- CONSULTAR
         consulta --nome municipio_serie --param cod_mun=221100 `
         --csv teresina_serie.csv
 
-SQL avulso, quando precisar de algo que nao esta em consultas.sql:
+SQL avulso, quando precisar de algo que nao esta em sql\consultas.sql:
 
     uv run python pdet_banco.py --banco C:\pdet\pdet.duckdb `
         sql "SELECT * FROM v_uf_ano WHERE uf = 'PI' ORDER BY ano"
@@ -168,12 +220,15 @@ cubos (tabelas materializadas)
 views de leitura (ja com rotulo e valor deflacionado)
     v_municipio_ano, v_uf_ano, v_setor_ano, v_perfil_ano
 
+    Todas trazem 'ativos' e 'ativos_com_remun' lado a lado -- ver a
+    armadilha 3 la embaixo antes de montar qualquer media salarial.
+
 metadados de proveniencia
     meta_colunas, meta_conversao, meta_download, meta_inventario,
     meta_cabecalhos, meta_config
 
 
-DUAS ARMADILHAS
+TRES ARMADILHAS
 ---------------
 
 1) Codigo de municipio e TEXTO de 6 digitos. Rondonia comeca com 11 e
@@ -184,3 +239,24 @@ DUAS ARMADILHAS
 2) remun_dez_nom e remuneracao NOMINAL do mes de dezembro. Comparar 2013
    com 2025 sem deflacionar nao mede nada. Use as colunas *_real das
    views v_*, ou multiplique por dim_ano.deflator.
+
+3) Os zeros de remuneracao viraram nulos em 2023. Ate 2022, quem nao
+   recebeu em dezembro aparece com remun_dez_nom = 0 literal; de 2023 em
+   diante o mesmo caso vem NULL. Isso quebra em silencio qualquer serie de
+   remuneracao que atravesse 2022/2023, porque a populacao do denominador
+   muda sem aviso. Medicao completa em CLAUDE.md #4.5, #4.7 e #4.8.
+
+   Por isso os cubos guardam DUAS contagens:
+
+       ativos             todos os vinculos ativos em 31/12
+       ativos_com_remun   so os que receberam (remun_dez_nom > 0)
+
+   remun_dez_media e remun_dez_p50 ja saem calculados sobre a segunda, e as
+   views v_* dividem massa_dez por ativos_com_remun. massa_dez nao precisa
+   de tratamento: sum() ignora NULL e soma zero, entao ela atravessa 2023
+   sem distorcao.
+
+   Se voce escrever consulta propria em cima de 'vinculos', o filtro
+   remun_dez_nom > 0 e por sua conta. E cuidado com
+   'WHERE remun_dez_nom = 0': de 2023 em diante isso retorna zero linha,
+   sem erro nenhum.

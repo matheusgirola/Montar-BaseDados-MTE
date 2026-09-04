@@ -88,9 +88,9 @@ RAIS_ESTAB,2023,2025,3,Bairros RJ - Código,bairros_rj,bairro_rj,VARCHAR,",",.,"
 RAIS_ESTAB,2023,2025,4,CNAE 2.0 Classe - Código,cnae_2_0_classe,cnae20_classe,VARCHAR,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_ESTAB,2023,2025,5,CNAE 95 Classe - Código,cnae_95_classe,cnae95_classe,VARCHAR,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_ESTAB,2023,2025,6,Distritos SP - Código,distritos_sp,distrito_sp,VARCHAR,",",.,"""",999997|999999|999|99|9997|9999,cp1252
-RAIS_ESTAB,2023,2025,7,Qtd Vínculos CLT,qtd_vinculos_clt,qtd_vinculos_clt,INTEGER,",",.,"""",999997|999999|999|99|9997|9999,cp1252
-RAIS_ESTAB,2023,2025,8,Qtd Vínculos Ativos,qtd_vinculos_ativos,qtd_vinculos_ativos,INTEGER,",",.,"""",999997|999999|999|99|9997|9999,cp1252
-RAIS_ESTAB,2023,2025,9,Qtd Vínculos Estatutários,qtd_vinculos_estatutarios,qtd_vinculos_estat,INTEGER,",",.,"""",999997|999999|999|99|9997|9999,cp1252
+RAIS_ESTAB,2023,2025,7,Qtd Vínculos CLT,qtd_vinculos_clt,qtd_vinculos_clt,INTEGER,",",.,"""",999997|999999,cp1252
+RAIS_ESTAB,2023,2025,8,Qtd Vínculos Ativos,qtd_vinculos_ativos,qtd_vinculos_ativos,INTEGER,",",.,"""",999997|999999,cp1252
+RAIS_ESTAB,2023,2025,9,Qtd Vínculos Estatutários,qtd_vinculos_estatutarios,qtd_vinculos_estat,INTEGER,",",.,"""",999997|999999,cp1252
 RAIS_ESTAB,2023,2025,10,Ind Atividade Ano - Código,ind_atividade_ano,ind_atividade_ano,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_ESTAB,2023,2025,11,Ind CEI Vinculado - Código,ind_cei_vinculado,ind_cei_vinculado,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_ESTAB,2023,2025,12,Ind Estab Participante PAT - Código,ind_estab_participante_pat,ind_pat,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
@@ -526,7 +526,7 @@ RAIS_VINCULOS,2023,2025,16,Faixa Rem Dez (SM) - Código,faixa_rem_dez_sm,faixa_r
 RAIS_VINCULOS,2023,2025,17,Faixa Tempo Emprego - Código,faixa_tempo_emprego,faixa_tempo_emprego,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_VINCULOS,2023,2025,18,Escolaridade Após 2005 - Código,escolaridade_apos_2005,grau_instrucao,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_VINCULOS,2023,2025,19,Qtd Hora Contr,qtd_hora_contr,qtd_hora_contr,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
-RAIS_VINCULOS,2023,2025,20,Idade,idade,idade,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
+RAIS_VINCULOS,2023,2025,20,Idade,idade,idade,SMALLINT,",",.,"""",999997|999999,cp1252
 RAIS_VINCULOS,2023,2025,21,Ind CEI Vinculado - Código,ind_cei_vinculado,ind_cei_vinculado,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_VINCULOS,2023,2025,22,Ind Estabelecimento Participante SIMPLES - Código,ind_estabelecimento_participante_simples,ind_simples,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_VINCULOS,2023,2025,23,Mês Admissão - Código,mes_admissao,mes_admissao,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
@@ -536,7 +536,7 @@ RAIS_VINCULOS,2023,2025,26,Município - Código,municipio,municipio,VARCHAR,",",
 RAIS_VINCULOS,2023,2025,27,Nacionalidade - Código,nacionalidade,nacionalidade,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_VINCULOS,2023,2025,28,Natureza Jurídica - Código,natureza_juridica,natureza_juridica,VARCHAR,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_VINCULOS,2023,2025,29,Ind Portador Defic - Código,ind_portador_defic,ind_portador_defic,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
-RAIS_VINCULOS,2023,2025,30,Qtd Dias Afastamento,qtd_dias_afastamento,qtd_dias_afastamento,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
+RAIS_VINCULOS,2023,2025,30,Qtd Dias Afastamento,qtd_dias_afastamento,qtd_dias_afastamento,SMALLINT,",",.,"""",999997|999999,cp1252
 RAIS_VINCULOS,2023,2025,31,Raça Cor - Código,raca_cor,raca_cor,SMALLINT,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_VINCULOS,2023,2025,32,Região Adm DF - Código,regiao_adm_df,regiao_adm_df,VARCHAR,",",.,"""",999997|999999|999|99|9997|9999,cp1252
 RAIS_VINCULOS,2023,2025,33,Vl Rem Dezembro Nom,vl_rem_dezembro_nom,remun_dez_nom,DOUBLE,",",.,"""",999997|999999|999|99|9997|9999,cp1252

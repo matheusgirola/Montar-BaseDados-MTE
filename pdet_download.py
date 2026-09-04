@@ -368,7 +368,7 @@ def main() -> None:
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--dados", required=True,
                    help="pasta raiz no drive (ex.: D:\\pdet ou /Volumes/Dados/pdet)")
-    p.add_argument("--inventario", default="inventario_ftp.csv")
+    p.add_argument("--inventario", default="estado/inventario_ftp.csv")
     p.add_argument("--host", default="ftp.mtps.gov.br")
     p.add_argument("--port", type=int, default=21)
     p.add_argument("--user", default="anonymous")

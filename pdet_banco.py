@@ -294,11 +294,12 @@ def carregar_csv(con, tabela: str, arquivo: Path):
 def procurar_apoio(pedida: Path, arquivos) -> tuple[Path, list[str]]:
     """Acha a pasta que realmente tem os CSVs de apoio.
 
-    O COMO-RODAR manda passar --dicionarios .\\dicionarios, mas no pacote
-    do projeto os dim_*.csv ficam na raiz. Quando a pasta pedida nao tem
-    nenhum deles, tenta a pasta do script e o diretorio atual antes de
-    desistir - senao o 'criar' segue adiante em silencio e metade das
-    checagens morre depois com 'table does not exist'."""
+    O default de --dicionarios e' 'dicionarios' (onde os dim_*.csv moram
+    no repositorio). Se o script for chamado de outro diretorio de trabalho
+    e a pasta pedida nao tiver nenhum dos arquivos, tenta a pasta do script
+    e o diretorio atual antes de desistir - senao o 'criar' segue adiante
+    em silencio e metade das checagens morre depois com 'table does not
+    exist'."""
     candidatas = [pedida, Path(__file__).resolve().parent, Path.cwd()]
     vistas, melhor, achados = [], pedida, []
     for c in candidatas:
@@ -462,7 +463,12 @@ CHECAGENS = [
      "Recorte curto da checagem 1, so com o que destoa: contagem exatamente "
      "igual em UFs diferentes no mesmo ano (dois estados nao empatam na "
      "unidade - e o mesmo arquivo lido duas vezes) e variacao anual acima "
-     "de 25% (queda = truncamento, salto = duplicacao).",
+     "de 25% (queda = truncamento, salto = duplicacao). A regra dos 25% so "
+     "vale para particao com 50 mil linhas ou mais: a pseudo-UF NI (o "
+     "arquivo RAIS_VINC_PUB_NI, de vinculo sem municipio) tem algumas "
+     "centenas ou milhares de linhas e varia centenas por cento por ano "
+     "sem que nada esteja errado - ela sai listada a parte, como "
+     "'particao minuscula', para nao sumir do relatorio nem afogar o resto.",
      """
      WITH c AS (SELECT ano, uf, count(*) AS linhas
                 FROM src_rais_vinculos GROUP BY 1, 2),
@@ -478,7 +484,13 @@ CHECAGENS = [
      SELECT 'variacao anual acima de 25%', ano, uf, linhas,
             round(100.0 * linhas / ant - 100, 1)
      FROM serie
-     WHERE ant IS NOT NULL AND abs(100.0 * linhas / ant - 100) > 25
+     WHERE ant IS NOT NULL AND linhas >= 50000 AND ant >= 50000
+       AND abs(100.0 * linhas / ant - 100) > 25
+     UNION ALL
+     SELECT 'particao minuscula (regra dos 25% nao se aplica)', ano, uf,
+            linhas, round(100.0 * linhas / ant - 100, 1)
+     FROM serie
+     WHERE linhas < 50000 OR ant < 50000
      ORDER BY tipo, ano, uf
      """),
 
@@ -571,14 +583,20 @@ CHECAGENS = [
 
     ("coerencia_com_salario_minimo",
      "A mediana da remuneracao de dezembro dividida pelo salario minimo do "
-     "ano deve ficar perto de 1,3 a 1,6. Fora disso, ha erro de escala.",
+     "ano. A faixa esperada DEPENDE DO RECORTE carregado: com o Brasil "
+     "inteiro fica entre 1,8 e 2,0 (medido: 1,81 a 1,99 de 2010 a 2025); so "
+     "com o Nordeste, entre 1,3 e 1,6. "
+     "Confira qual recorte esta na base antes de gritar - fora da faixa do "
+     "proprio recorte, ha erro de escala. O filtro remun > 0 nao e detalhe: "
+     "ate 2022 quem nao recebeu em dezembro entra como 0 e a partir de 2023 "
+     "como NULL, entao sem ele a serie salta sozinha na virada 2022/2023.",
      """
      SELECT v.ano, round(median(v.remun_dez_nom), 2) AS mediana_nom,
             CAST(a.salario_minimo_dez AS DOUBLE) AS sal_min,
             round(median(v.remun_dez_nom) / CAST(a.salario_minimo_dez AS DOUBLE), 2)
                 AS mediana_em_sm
      FROM vinculos v JOIN dim_ano a ON CAST(a.ano AS INTEGER) = v.ano
-     WHERE v.vinculo_ativo_3112
+     WHERE v.vinculo_ativo_3112 AND v.remun_dez_nom > 0
      GROUP BY v.ano, a.salario_minimo_dez ORDER BY v.ano
      """),
 
@@ -604,6 +622,30 @@ CHECAGENS = [
             sum(qtd_vinculos_ativos) AS soma_vinculos_ativos
      FROM estabelecimentos GROUP BY ano ORDER BY ano
      """),
+
+    ("conciliacao_estab_vinculos",
+     "As duas bases tem que fechar: o que os estabelecimentos declaram como "
+     "vinculo ativo em 31/12, mais os vinculos marcados como abandonados, da "
+     "exatamente a contagem de ativos da base de vinculos. A coluna 'sobra' "
+     "tem que ser ZERO em todo ano. Se nao for, ou falta unidade numa das "
+     "duas arvores, ou algum marcador de ausente esta comendo grandeza -- foi "
+     "o que aconteceu em 2023-2025, quando o '99' da lista de nulos anulava a "
+     "contagem dos estabelecimentos com 99 empregados.",
+     """
+     WITH e AS (SELECT ano, sum(qtd_vinculos_ativos) AS declarado
+                FROM estabelecimentos GROUP BY ano),
+          v AS (SELECT ano,
+                       count(*) FILTER (WHERE vinculo_ativo_3112) AS ativos,
+                       count(*) FILTER (WHERE vinculo_ativo_3112
+                                          AND ind_vinculo_abandonado = 1)
+                           AS abandonados
+                FROM vinculos GROUP BY ano)
+     SELECT e.ano, v.ativos, e.declarado,
+            e.declarado - v.ativos                       AS diferenca,
+            coalesce(v.abandonados, 0)                   AS abandonados,
+            e.declarado + coalesce(v.abandonados, 0) - v.ativos AS sobra
+     FROM e JOIN v USING (ano) ORDER BY e.ano
+     """),
 ]
 
 
@@ -619,6 +661,7 @@ DEPENDE = {
     "coerencia_com_salario_minimo": ["dim_ano"],
     "colunas_por_esquema": ["meta_colunas"],
     "estabelecimentos_por_ano": ["estabelecimentos"],
+    "conciliacao_estab_vinculos": ["estabelecimentos", "vinculos"],
     "cobertura_ano_uf": ["src_rais_vinculos"],
     "anomalia_ano_uf": ["src_rais_vinculos"],
     "particao_com_varias_origens": ["arq_rais_vinculos"],
@@ -630,7 +673,7 @@ DEPENDE = {
 
 def cmd_checar(a) -> None:
     con = abrir(a.banco, a.memoria, a.threads, a.tmp, leitura=False)
-    saida = Path(a.saida) if a.saida else Path("checagem_banco.md")
+    saida = Path(a.saida) if a.saida else Path("estado/checagem_banco.md")
     linhas = [f"# Checagem do banco PDET", "",
               f"- Banco: `{a.banco}`",
               f"- Parquet: `{config_ler(con, 'raiz_parquet', '?')}`",
@@ -750,18 +793,30 @@ def cmd_codigos(a) -> None:
                    count(*) AS linhas, min(ano) AS primeiro_ano,
                    max(ano) AS ultimo_ano
             FROM vinculos WHERE {col} IS NOT NULL {filtro} GROUP BY 2""")
-    sql = f"""
-        WITH obs AS ({' UNION ALL '.join(partes)})
-        SELECT o.variavel, o.codigo, o.linhas, o.primeiro_ano, o.ultimo_ano,
-               coalesce(d.rotulo, '>>> SEM ROTULO <<<') AS rotulo,
-               d.confianca
-        FROM obs o
-        LEFT JOIN dim_codigos d
-               ON d.variavel = o.variavel AND d.codigo = o.codigo
-        ORDER BY o.variavel, try_cast(o.codigo AS INTEGER), o.codigo
-    """
+    # A varredura e cara (le uma coluna categorica de cada vez sobre a base
+    # inteira). Materializar UMA vez e reusar: a versao anterior repetia o
+    # mesmo SQL tres vezes -- no COPY, na contagem e no top 30 -- e triplicava
+    # um trabalho que ja passa de uma hora com a base nacional no USB.
     print("Varrendo os codigos observados (le muitas colunas; leva alguns "
           "minutos)...\n")
+    con.execute("CREATE OR REPLACE TEMP TABLE obs_codigos AS "
+                + " UNION ALL ".join(partes))
+
+    # O join carrega a janela de anos porque ha codigo que muda de significado:
+    # 'faixa_remun_media_sm' vale 0..11 ate 2022 e 1..12 de 2023 em diante, com
+    # o mesmo numero querendo dizer faixas diferentes dos dois lados.
+    sql = """
+        SELECT o.variavel, o.codigo, o.linhas, o.primeiro_ano, o.ultimo_ano,
+               coalesce(d.rotulo, '>>> SEM ROTULO <<<') AS rotulo,
+               d.ano_de, d.ano_ate, d.confianca
+        FROM obs_codigos o
+        LEFT JOIN dim_codigos d
+               ON d.variavel = o.variavel AND d.codigo = o.codigo
+              AND CAST(d.ano_ate AS INTEGER) >= o.primeiro_ano
+              AND CAST(d.ano_de  AS INTEGER) <= o.ultimo_ano
+        ORDER BY o.variavel, try_cast(o.codigo AS INTEGER), o.codigo,
+                 try_cast(d.ano_de AS INTEGER)
+    """
     saida = Path(a.saida) if a.saida else Path("codigos_observados.csv")
     con.execute(f"COPY ({sql}) TO '{p(saida)}' (HEADER, DELIMITER ',')")
     n_sem = con.execute(f"""
@@ -792,7 +847,14 @@ MEDIDAS_VINC = """
     count(*) FILTER (WHERE vinculo_ativo_3112 AND sexo = 2)     AS ativos_fem,
     count(*) FILTER (WHERE vinculo_ativo_3112 AND setor_publico) AS ativos_publico,
     sum(remun_dez_nom) FILTER (WHERE vinculo_ativo_3112)        AS massa_dez,
-    avg(remun_dez_nom) FILTER (WHERE vinculo_ativo_3112)        AS remun_dez_media,
+    -- as duas populacoes, de proposito: 'ativos' conta todo mundo, e
+    -- 'ativos_com_remun' so quem recebeu em dezembro. Ate 2022 quem nao
+    -- recebeu vem com 0 literal e de 2023 em diante vem NULL -- sem separar
+    -- os dois, a media troca de denominador no meio da serie e ninguem ve.
+    count(*) FILTER (WHERE vinculo_ativo_3112
+                       AND remun_dez_nom > 0)                   AS ativos_com_remun,
+    avg(remun_dez_nom) FILTER (WHERE vinculo_ativo_3112
+                                 AND remun_dez_nom > 0)         AS remun_dez_media,
     avg(remun_media_nom) FILTER (WHERE vinculo_ativo_3112)      AS remun_media_ano,
     avg(qtd_hora_contr) FILTER (WHERE vinculo_ativo_3112)       AS horas_media,
     avg(idade) FILTER (WHERE vinculo_ativo_3112)                AS idade_media,
@@ -811,7 +873,8 @@ def _sql_cubo_mun(filtro: str) -> str:
            GROUPING(coalesce(c.cnae_secao, '?'))  AS g_secao,
            GROUPING(v.tamanho_estab)              AS g_tam,
            {MEDIDAS_VINC},
-           approx_quantile(remun_dez_nom, 0.5) FILTER (WHERE vinculo_ativo_3112)
+           approx_quantile(remun_dez_nom, 0.5)
+               FILTER (WHERE vinculo_ativo_3112 AND remun_dez_nom > 0)
                AS remun_dez_p50
     FROM vinculos v
     LEFT JOIN dim_cnae_classe c
@@ -865,7 +928,8 @@ def cmd_agregar(a) -> None:
 
     gravar("fato_vinc_mun", """
         SELECT ano, uf, cod_mun, vinculos, ativos, admitidos, desligados,
-               ativos_fem, ativos_publico, massa_dez, remun_dez_media,
+               ativos_fem, ativos_publico, massa_dez, ativos_com_remun,
+               remun_dez_media,
                remun_dez_p50, remun_media_ano, horas_media, idade_media,
                tempo_emprego_medio
         FROM _cubo_mun WHERE g_secao = 1 AND g_tam = 1
@@ -878,7 +942,9 @@ def cmd_agregar(a) -> None:
                sum(ativos_fem) AS ativos_fem,
                sum(ativos_publico) AS ativos_publico,
                sum(massa_dez) AS massa_dez,
-               sum(massa_dez) / nullif(sum(ativos), 0) AS remun_dez_media
+               sum(ativos_com_remun) AS ativos_com_remun,
+               sum(massa_dez) / nullif(sum(ativos_com_remun), 0)
+                   AS remun_dez_media
         FROM _cubo_mun WHERE g_secao = 0
         GROUP BY ano, uf, cod_mun, cnae_secao
     """)
@@ -886,7 +952,9 @@ def cmd_agregar(a) -> None:
         SELECT ano, uf, tamanho_estab,
                sum(vinculos) AS vinculos, sum(ativos) AS ativos,
                sum(massa_dez) AS massa_dez,
-               sum(massa_dez) / nullif(sum(ativos), 0) AS remun_dez_media
+               sum(ativos_com_remun) AS ativos_com_remun,
+               sum(massa_dez) / nullif(sum(ativos_com_remun), 0)
+                   AS remun_dez_media
         FROM _cubo_mun WHERE g_tam = 0
         GROUP BY ano, uf, tamanho_estab
     """)
@@ -903,7 +971,11 @@ def cmd_agregar(a) -> None:
                count(*) FILTER (WHERE mes_admissao BETWEEN 1 AND 12) AS admitidos,
                count(*) FILTER (WHERE mes_desligamento BETWEEN 1 AND 12) AS desligados,
                sum(remun_dez_nom) FILTER (WHERE vinculo_ativo_3112) AS massa_dez,
-               avg(remun_dez_nom) FILTER (WHERE vinculo_ativo_3112) AS remun_dez_media
+               count(*) FILTER (WHERE vinculo_ativo_3112
+                                  AND remun_dez_nom > 0) AS ativos_com_remun,
+               avg(remun_dez_nom) FILTER (WHERE vinculo_ativo_3112
+                                            AND remun_dez_nom > 0)
+                   AS remun_dez_media
         FROM vinculos v {filtro_v}
         GROUP BY ALL
     """)
@@ -936,7 +1008,10 @@ def cmd_agregar(a) -> None:
         gravar("fato_vinc_ocupacao", f"""
             SELECT ano, uf, cod_mun, cbo_2002, cbo_grande_grupo,
                    count(*) FILTER (WHERE vinculo_ativo_3112) AS ativos,
-                   avg(remun_dez_nom) FILTER (WHERE vinculo_ativo_3112)
+                   count(*) FILTER (WHERE vinculo_ativo_3112
+                                      AND remun_dez_nom > 0) AS ativos_com_remun,
+                   avg(remun_dez_nom) FILTER (WHERE vinculo_ativo_3112
+                                                AND remun_dez_nom > 0)
                        AS remun_dez_media,
                    count(*) FILTER (WHERE mes_admissao BETWEEN 1 AND 12)
                        AS admitidos
@@ -986,7 +1061,8 @@ def criar_views_de_leitura(con) -> None:
                round(100.0 * f.ativos_fem / nullif(f.ativos, 0), 1) AS pct_fem,
                f.ativos_publico,
                round(100.0 * f.ativos_publico / nullif(f.ativos, 0), 1) AS pct_publico,
-               f.massa_dez, f.remun_dez_media, f.remun_dez_p50,
+               f.massa_dez, f.ativos_com_remun,
+               f.remun_dez_media, f.remun_dez_p50,
                round(f.remun_dez_media * CAST(a.deflator AS DOUBLE), 2)
                    AS remun_dez_media_real,
                round(f.remun_dez_media / CAST(a.salario_minimo_dez AS DOUBLE), 2)
@@ -1007,8 +1083,10 @@ def criar_views_de_leitura(con) -> None:
                sum(f.ativos_fem) AS ativos_fem,
                sum(f.ativos_publico) AS ativos_publico,
                sum(f.massa_dez) AS massa_dez,
-               sum(f.massa_dez) / nullif(sum(f.ativos), 0) AS remun_dez_media,
-               round(sum(f.massa_dez) / nullif(sum(f.ativos), 0)
+               sum(f.ativos_com_remun) AS ativos_com_remun,
+               sum(f.massa_dez) / nullif(sum(f.ativos_com_remun), 0)
+                   AS remun_dez_media,
+               round(sum(f.massa_dez) / nullif(sum(f.ativos_com_remun), 0)
                      * any_value(CAST(a.deflator AS DOUBLE)), 2)
                    AS remun_dez_media_real
         FROM fato_vinc_mun f
@@ -1024,7 +1102,9 @@ def criar_views_de_leitura(con) -> None:
                sum(f.desligados) AS desligados,
                sum(f.admitidos) - sum(f.desligados) AS saldo,
                sum(f.massa_dez) AS massa_dez,
-               sum(f.massa_dez) / nullif(sum(f.ativos), 0) AS remun_dez_media
+               sum(f.ativos_com_remun) AS ativos_com_remun,
+               sum(f.massa_dez) / nullif(sum(f.ativos_com_remun), 0)
+                   AS remun_dez_media
         FROM fato_vinc_mun_secao f
         LEFT JOIN dim_municipio m USING (cod_mun)
         LEFT JOIN (SELECT DISTINCT cnae_secao, desc_secao FROM dim_cnae_classe) c
@@ -1039,7 +1119,7 @@ def criar_views_de_leitura(con) -> None:
                f.grau_instrucao, g.rotulo AS instrucao_rot,
                f.faixa_etaria,   e.rotulo AS faixa_etaria_rot,
                f.vinculos, f.ativos, f.admitidos, f.desligados,
-               f.massa_dez, f.remun_dez_media
+               f.massa_dez, f.ativos_com_remun, f.remun_dez_media
         FROM fato_vinc_perfil f
         LEFT JOIN dim_municipio m USING (cod_mun)
         LEFT JOIN dim_codigos s ON s.variavel = 'sexo'
@@ -1204,7 +1284,7 @@ def main() -> None:
 
     c = sub.add_parser("consulta", help="roda consultas nomeadas",
                    parents=[globais_depois])
-    c.add_argument("--arquivo", default="consultas.sql")
+    c.add_argument("--arquivo", default="sql/consultas.sql")
     c.add_argument("--nome", default="")
     c.add_argument("--param", action="append", default=[],
                    help="substitui ${nome} na consulta: --param uf=PI")

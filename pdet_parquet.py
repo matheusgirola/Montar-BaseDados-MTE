@@ -167,6 +167,12 @@ class Esquema:
         self.aspas = p["aspas"] or ""
         self.encoding = p["encoding"] or "cp1252"
         self.nulos = [x for x in (p["nulos"] or "").split("|") if x]
+        # ... e a mesma coisa POR COLUNA. A lista de 2023-2025 traz
+        # marcadores curtos (99, 999) que sao sentinela num campo de
+        # duas casas e valor legitimo noutro: "Qtd Vinculos Ativos =
+        # 99" e um estabelecimento com 99 empregados, nao um ausente.
+        self.nulos_col = [[x for x in (r["nulos"] or "").split("|") if x]
+                          for r in self.linhas]
         self.colunas = [r["nome_canonico"] for r in self.linhas]
         self.tipos = [r["tipo"] for r in self.linhas]
 
@@ -441,12 +447,14 @@ class FonteBytes:
 # SQL de conversão
 # ===========================================================================
 
-def expressao(col: str, tipo: str, esq: Esquema) -> str:
+def expressao(col: str, tipo: str, esq: Esquema, nulos=None) -> str:
     """Texto cru -> valor tipado. Trata espaço de preenchimento, zeros à
     esquerda, os vários marcadores de ausente e o decimal do ano."""
     bruto = f'trim("{col}")'
-    if esq.nulos:
-        lista = ", ".join("'" + n.replace("'", "''") + "'" for n in esq.nulos)
+    if nulos is None:
+        nulos = esq.nulos
+    if nulos:
+        lista = ", ".join("'" + n.replace("'", "''") + "'" for n in nulos)
         bruto = f"nullif_multi({bruto}, [{lista}])"
     else:
         bruto = f"nullif({bruto}, '')"
@@ -467,7 +475,8 @@ def expressao(col: str, tipo: str, esq: Esquema) -> str:
 
 
 def montar_select(esq: Esquema, ano: int) -> str:
-    partes = [expressao(c, t, esq) for c, t in zip(esq.colunas, esq.tipos)]
+    partes = [expressao(c, t, esq, n)
+              for c, t, n in zip(esq.colunas, esq.tipos, esq.nulos_col)]
     partes.append(f"{ano}::SMALLINT AS ano")
     if "municipio" in esq.colunas:
         casos = " ".join(f"WHEN '{k}' THEN '{v}'" for k, v in COD_UF.items())
@@ -666,7 +675,7 @@ def main() -> None:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--raw", required=True, help="pasta com os .7z baixados")
     p.add_argument("--saida", required=True, help="raiz do Parquet (HD externo)")
-    p.add_argument("--dic", default="dic_rais.csv")
+    p.add_argument("--dic", default="dicionarios/dic_rais.csv")
     p.add_argument("--manifesto", default="",
                    help="padrão: <saida>/../03_meta/conversao.csv")
     p.add_argument("--tmp", default="",
@@ -700,6 +709,15 @@ def main() -> None:
     p.add_argument("--incluir-legado", action="store_true",
                    help="converte também as pastas 'Legado'. Fora por padrão: "
                         "duplicariam o ano.")
+    p.add_argument("--esquema-ano", default="",
+                   help="lê os arquivos com o esquema DESTE ano, mantendo a "
+                        "partição no ano real do dado. Existe por causa das "
+                        "pastas 'Legado': o RAIS/2023/Legado traz o dado de "
+                        "2023 no layout de 2019 (60 colunas, separador ';', "
+                        "decimal ','), enquanto a definitiva de 2023 vem no "
+                        "layout novo (62 colunas, ',', aspas). Sem isto o "
+                        "conversor escolhe o esquema pelo ano do caminho e "
+                        "morre com 'Expected 62 columns, got 17'.")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--bin7z", default="")
     a = p.parse_args()
@@ -780,9 +798,10 @@ def main() -> None:
             continue
         if a.recorte and recorte not in a.recorte:
             continue
-        esq = escolher_esquema(esquemas, base, ano)
+        ano_esq = a.esquema_ano or ano
+        esq = escolher_esquema(esquemas, base, ano_esq)
         if esq is None:
-            ignorados.append((arq.name, f"sem esquema para {base} {ano}"))
+            ignorados.append((arq.name, f"sem esquema para {base} {ano_esq}"))
             continue
         try:
             internos = listar_internos(arq, bin7z)

@@ -44,9 +44,9 @@ from datetime import datetime, timezone
 HOST = "ftp.mtps.gov.br"
 ROOT = "/pdet/microdados"
 
-CSV_SAIDA = "inventario_ftp.csv"
-STATE_JSON = "inventario_state.json"   # permite --resume
-RELATORIO_MD = "relatorio_fase0.md"
+CSV_SAIDA = "estado/inventario_ftp.csv"
+STATE_JSON = "estado/inventario_state.json"   # permite --resume
+RELATORIO_MD = "estado/relatorio_fase0.md"
 
 TIMEOUT = 60          # segundos por operação de socket
 MAX_TENTATIVAS = 4    # reconexões antes de desistir de um diretório

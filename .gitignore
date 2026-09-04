@@ -1,2 +1,5 @@
 conversao.csv
 manifesto.csv
+COMO-RODAR.txt
+__pycache__/
+*.pyc

@@ -485,9 +485,9 @@ def main() -> None:
                    help="auto = py7zr se disponível, senão o binário do 7-Zip")
     p.add_argument("--bin7z", default="",
                    help="caminho de um 7z.exe/7za.exe (inclusive portátil)")
-    p.add_argument("--dic", default="dic_rais.csv",
+    p.add_argument("--dic", default="dicionarios/dic_rais.csv",
                    help="dicionário de colunas para conferência")
-    p.add_argument("--saida", default=".", help="pasta das saídas")
+    p.add_argument("--saida", default="estado", help="pasta das saídas")
     p.add_argument("--tmp", default="",
                    help="pasta temporária usada pelo py7zr antigo; aponte para "
                         "o disco interno, fora de OneDrive/rede")
